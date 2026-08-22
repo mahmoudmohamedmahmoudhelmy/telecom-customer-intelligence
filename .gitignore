@@ -23,3 +23,7 @@ mlruns/
 # Operating system files
 .DS_Store
 Thumbs.db
+# Generated data sources
+data/raw/billing/*
+data/raw/complaints/*
+data/raw/network_events/*
