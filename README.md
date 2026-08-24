@@ -18,7 +18,7 @@ The project integrates customer, billing, complaints, and fixed-access network d
 
 ## Dashboard Preview
 
-![TelecoPulse-CX Power BI Dashboard](docs/images/TelecoPulse-CX-Dashboard.png)
+![TelecoPulse-CX Power BI Dashboard](./docs/images/TelecoPulse-CX-Dashboard.png?raw=true)
 
 The report is stored as a **Power BI Project (PBIP)** so that the report definition, semantic model, DAX measures, relationships, and visual configuration can be version-controlled as text-based files.
 
