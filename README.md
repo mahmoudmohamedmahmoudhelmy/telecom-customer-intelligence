@@ -144,7 +144,7 @@ The churn use case is implemented as a binary classification workflow for struct
 flowchart LR
     A["Gold ML Features"] --> B["Train and Test Split"]
     B --> C["Random Forest"]
-    B --> D["Gradient-Boosted Trees"]
+    B --> D["Logistic Regression"]
     C --> E["Metric Comparison"]
     D --> E
     E --> F["MLflow Tracking"]
@@ -155,7 +155,7 @@ Implemented ML concepts include:
 
 - Feature engineering from customer, billing, complaint, and network domains
 - Categorical feature encoding and vector assembly
-- Random Forest and Gradient-Boosted Tree classifiers
+- Logistic Regression and Random Forest classifiers
 - Precision, recall, F1, and ROC-AUC evaluation
 - Feature importance analysis
 - MLflow experiment tracking
@@ -222,7 +222,7 @@ The Power BI implementation includes:
 | Data generation | Python, pandas, NumPy |
 | Data engineering | Databricks, PySpark, Spark SQL, Delta Lake |
 | Data modeling | Medallion Architecture, dimensional modeling, Delta tables |
-| Machine learning | Spark ML, Random Forest, Gradient-Boosted Trees, MLflow |
+| Machine learning | Spark ML, Random Forest, Logistic Regression, MLflow |
 | Business intelligence | Power BI, Power Query, DAX, PBIP, TMDL, PBIR, Azure Maps |
 
 ---
