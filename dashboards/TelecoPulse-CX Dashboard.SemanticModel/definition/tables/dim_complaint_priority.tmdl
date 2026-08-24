@@ -1,0 +1,38 @@
+table dim_complaint_priority
+	lineageTag: 5232c4f4-15e7-436e-865f-373743cf1a97
+
+	column priority
+		lineageTag: 6c32381a-ff7f-4202-89c8-17044006d1e7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [priority]
+		sortByColumn: priority_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority_sort
+		formatString: 0
+		lineageTag: 831431f1-4aa7-44a5-b0cf-4fdf4ef0256f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [priority_sort]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_complaint_priority = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "priority", STRING,
+				    "priority_sort", INTEGER,
+				    {
+				        {"critical", 1},
+				        {"high", 2},
+				        {"medium", 3},
+				        {"low", 4}
+				    }
+				)
+
+	annotation PBI_Id = fc13c08086e84b6e8d236406be1a00b9
+

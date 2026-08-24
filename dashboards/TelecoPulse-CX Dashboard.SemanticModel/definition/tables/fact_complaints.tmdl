@@ -1,0 +1,154 @@
+table fact_complaints
+	lineageTag: 82eeaea8-c2ab-4ea6-90a8-e3878ceac75e
+
+	column complaint_id
+		dataType: string
+		lineageTag: 96120fb6-e869-426f-8b5b-bfb7139bced4
+		summarizeBy: none
+		sourceColumn: complaint_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 344551fb-4851-417c-87ad-2040c3687ba4
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: da9e49e7-21dc-4bbf-9aed-2589c38aeb37
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column opened_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 0fc1328d-3635-4ec0-899e-1594fe188029
+		summarizeBy: none
+		sourceColumn: opened_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column opened_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: cf7c7c2f-eef2-40eb-970d-8c7afad7ac5d
+		summarizeBy: none
+		sourceColumn: opened_at
+
+		variation Variation
+			isDefault
+			relationship: 50364a4c-5cee-4a31-a692-48910f9277a1
+			defaultHierarchy: LocalDateTable_df8e4cf1-efa8-4022-8062-b6473154a9fb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column complaint_category
+		dataType: string
+		lineageTag: 78ab5144-8de1-44e6-8aa7-7fbffcc7ceb5
+		summarizeBy: none
+		sourceColumn: complaint_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column priority
+		dataType: string
+		lineageTag: 12081afa-5af7-4db6-b367-acf44d49c481
+		summarizeBy: none
+		sourceColumn: priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column complaint_status
+		dataType: string
+		lineageTag: e3e21959-1816-4750-a82f-a24ebc3aad14
+		summarizeBy: none
+		sourceColumn: complaint_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column complaint_channel
+		dataType: string
+		lineageTag: f68fa42c-95a3-4f0c-8bb6-e97eda97c5dd
+		summarizeBy: none
+		sourceColumn: complaint_channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column resolution_hours
+		dataType: double
+		lineageTag: 0bbd7fda-c147-49d8-8def-6058beecfb2a
+		summarizeBy: sum
+		sourceColumn: resolution_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column satisfaction_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f5e3549-72df-45dc-b582-af10c63ac503
+		summarizeBy: sum
+		sourceColumn: satisfaction_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_critical
+		dataType: int64
+		formatString: 0
+		lineageTag: de893703-2f59-4bd7-8814-125163291a3e
+		summarizeBy: sum
+		sourceColumn: is_critical
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_escalated
+		dataType: int64
+		formatString: 0
+		lineageTag: e0b79d01-68f2-4dfc-9d75-2c659a831c80
+		summarizeBy: sum
+		sourceColumn: is_escalated
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_unresolved
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a297d48-5d69-47ed-9f24-fd4f12780ae3
+		summarizeBy: sum
+		sourceColumn: is_unresolved
+
+		annotation SummarizationSetBy = Automatic
+
+	column _gold_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 3db51743-cf0f-46c7-a6b5-689dd8017a90
+		summarizeBy: none
+		sourceColumn: _gold_created_at
+
+		variation Variation
+			isDefault
+			relationship: e19df488-e933-40cf-ae23-7792a431d859
+			defaultHierarchy: LocalDateTable_f031b558-1629-4d88-826d-d84ea465ec5b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_complaints = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    fact_complaints_Table = telecom_gold_Schema{[Name="fact_complaints",Kind="Table"]}[Data]
+				in
+				    fact_complaints_Table
+

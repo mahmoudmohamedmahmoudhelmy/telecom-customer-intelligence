@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "TelecoPulse-CX Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1b0beb24-07e4-4303-b930-fbd5bbe33c1b"
+  }
+}

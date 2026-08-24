@@ -1,0 +1,266 @@
+table dim_customer
+	lineageTag: 68263245-521c-4431-8d25-c8b5589cd9de
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 656bc22b-9d67-4793-824c-cbff85ff8b79
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: a62faea9-f88a-49c7-9b05-f20024c44df3
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: fc890eef-bab4-46e1-b6be-d1264335cd7d
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column senior_citizen
+		dataType: int64
+		formatString: 0
+		lineageTag: fc42a65c-a649-4bb3-9ff8-d3e59fe3a89c
+		summarizeBy: sum
+		sourceColumn: senior_citizen
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_partner
+		dataType: string
+		lineageTag: 3fa8a151-6d0e-4f0a-ac52-b5bfae055947
+		summarizeBy: none
+		sourceColumn: has_partner
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_dependents
+		dataType: string
+		lineageTag: fde23ed6-5369-4910-b7f9-7356613d2e2c
+		summarizeBy: none
+		sourceColumn: has_dependents
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure_months
+		dataType: int64
+		formatString: 0
+		lineageTag: 866c2840-df7b-4757-b9f1-62ec343533b1
+		summarizeBy: sum
+		sourceColumn: tenure_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone_service
+		dataType: string
+		lineageTag: 08308e79-980a-40f0-a628-8d3e936a7e8c
+		summarizeBy: none
+		sourceColumn: phone_service
+
+		annotation SummarizationSetBy = Automatic
+
+	column multiple_lines
+		dataType: string
+		lineageTag: ee9791ea-4671-4db6-9367-2e886d4400d8
+		summarizeBy: none
+		sourceColumn: multiple_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column internet_service
+		dataType: string
+		lineageTag: 3e857472-e54a-4e6d-b3de-4e8ce63a08bf
+		summarizeBy: none
+		sourceColumn: internet_service
+
+		annotation SummarizationSetBy = Automatic
+
+	column online_security
+		dataType: string
+		lineageTag: 6d98bbf8-74da-49a2-8594-3e2bfac122d9
+		summarizeBy: none
+		sourceColumn: online_security
+
+		annotation SummarizationSetBy = Automatic
+
+	column online_backup
+		dataType: string
+		lineageTag: 83825769-6e61-4ff8-a966-f84d404113b2
+		summarizeBy: none
+		sourceColumn: online_backup
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_protection
+		dataType: string
+		lineageTag: d40924b2-325a-42d2-8568-014a314953af
+		summarizeBy: none
+		sourceColumn: device_protection
+
+		annotation SummarizationSetBy = Automatic
+
+	column tech_support
+		dataType: string
+		lineageTag: debcc92d-0c82-4825-9bf2-6866f123f1c5
+		summarizeBy: none
+		sourceColumn: tech_support
+
+		annotation SummarizationSetBy = Automatic
+
+	column streaming_tv
+		dataType: string
+		lineageTag: 21c0d0da-6639-4eff-a685-4c1e166f238d
+		summarizeBy: none
+		sourceColumn: streaming_tv
+
+		annotation SummarizationSetBy = Automatic
+
+	column streaming_movies
+		dataType: string
+		lineageTag: d3165d6f-f957-4028-8459-a6be84e37c80
+		summarizeBy: none
+		sourceColumn: streaming_movies
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_type
+		dataType: string
+		lineageTag: 2fe15f8f-aa65-4d47-8afb-7a29948ea739
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column paperless_billing
+		dataType: string
+		lineageTag: 96f69d98-04dd-4a23-ac10-9d7169964445
+		summarizeBy: none
+		sourceColumn: paperless_billing
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: 0067bfb7-6b3a-4244-bdb4-385abacee5e7
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_charges
+		dataType: double
+		lineageTag: b0b83687-d7db-4eff-9c31-bd6efe24cfe3
+		summarizeBy: sum
+		sourceColumn: monthly_charges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_charges
+		dataType: double
+		lineageTag: fcb3a85f-4b1d-46ac-b3f3-288f5b345799
+		summarizeBy: sum
+		sourceColumn: total_charges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column churn
+		dataType: string
+		lineageTag: e84ddac4-bc7f-4336-bedd-bdad0c0f0175
+		summarizeBy: none
+		sourceColumn: churn
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_label
+		dataType: int64
+		formatString: 0
+		lineageTag: b3e3a4fc-e806-45b9-8903-007a37545e17
+		summarizeBy: sum
+		sourceColumn: churn_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure_segment
+		dataType: string
+		lineageTag: 11f3a3fb-3a55-4b24-9a14-435397aa6e36
+		summarizeBy: none
+		sourceColumn: tenure_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_charge_segment
+		dataType: string
+		lineageTag: 954b1749-df3e-4b20-b108-d01080697935
+		summarizeBy: none
+		sourceColumn: monthly_charge_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column _gold_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 26517963-216f-47cc-a9e1-01088c22bd80
+		summarizeBy: none
+		sourceColumn: _gold_created_at
+
+		variation Variation
+			isDefault
+			relationship: 06380654-d73f-4548-9197-eab94f9d2138
+			defaultHierarchy: LocalDateTable_f3a08c62-7926-4e0a-af12-4d02469c81ec.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Status' =
+			
+			IF(
+			    'dim_customer'[churn_label] = 1,
+			    "Churned",
+			    "Active"
+			)
+		lineageTag: ddbc8920-cf2f-4500-834c-95cd1ae6e7c2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Type Sort' =
+			
+			SWITCH(
+			    'dim_customer'[contract_type],
+			    "Month-to-month", 1,
+			    "One year", 2,
+			    "Two year", 3,
+			    99
+			)
+		formatString: 0
+		lineageTag: 952d3c9c-83c7-478d-b3ca-4132d19a9230
+		summarizeBy: sum
+		sortByColumn: contract_type
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    dim_customer_Table = telecom_gold_Schema{[Name="dim_customer",Kind="Table"]}[Data]
+				in
+				    dim_customer_Table
+

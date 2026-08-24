@@ -27,3 +27,6 @@ Thumbs.db
 data/raw/billing/*
 data/raw/complaints/*
 data/raw/network_events/*
+# Power BI local cache and machine-specific settings
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

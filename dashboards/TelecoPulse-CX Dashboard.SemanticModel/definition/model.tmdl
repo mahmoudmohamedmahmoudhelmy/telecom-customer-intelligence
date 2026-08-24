@@ -1,0 +1,60 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["customer_churn_analytics","customer_churn_predictions","customer_ml_features","dim_customer","dim_date","executive_kpis","fact_billing","fact_complaints","fact_network_events","high_risk_customers","ml_feature_importance","ml_model_performance","network_performance_by_region","revenue_risk_by_segment","dim_network_location"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table customer_churn_analytics
+ref table DateTableTemplate_dfb2d024-3e7e-49d5-990e-adf9cfe82f1e
+ref table LocalDateTable_d9104e37-dd3c-4ecf-a60b-cacc16a5ef3a
+ref table LocalDateTable_49065dc5-1c53-4be7-be5a-baa65b9dd22e
+ref table LocalDateTable_5ad17914-bf80-4abe-98a9-8fe110cad6f1
+ref table LocalDateTable_7cc023cd-f901-4381-beb6-3b09e696a770
+ref table LocalDateTable_b25d4488-c331-4d74-be2d-68316bada98b
+ref table LocalDateTable_e2e64af1-b69b-4c77-b512-2aa419f963db
+ref table customer_churn_predictions
+ref table LocalDateTable_954f0e7f-087c-4731-a4a1-c65c03edf4b9
+ref table customer_ml_features
+ref table LocalDateTable_a34f62ca-aa11-42f9-bedf-a3d1f6130b81
+ref table dim_customer
+ref table LocalDateTable_f3a08c62-7926-4e0a-af12-4d02469c81ec
+ref table dim_date
+ref table LocalDateTable_7bd5a9ec-3fb9-4519-a95d-bcaa737ef70f
+ref table executive_kpis
+ref table LocalDateTable_7ac2a3f4-84ba-4935-8446-cc210851902f
+ref table LocalDateTable_31f18e1e-4722-433b-814d-5e2d8f1eb21b
+ref table fact_billing
+ref table LocalDateTable_314a33e5-0f57-4454-b56c-7dbf2ab19bb2
+ref table LocalDateTable_69ac4789-d690-43da-8f16-b3432b84831f
+ref table LocalDateTable_34bdeffa-41c9-4740-abcf-4219d0cbfbee
+ref table fact_complaints
+ref table LocalDateTable_df8e4cf1-efa8-4022-8062-b6473154a9fb
+ref table LocalDateTable_f031b558-1629-4d88-826d-d84ea465ec5b
+ref table fact_network_events
+ref table LocalDateTable_046c6b54-d67d-4ffe-8d97-8fa4e9005e76
+ref table LocalDateTable_6b07074a-df97-46f6-8e19-a89a230b2889
+ref table high_risk_customers
+ref table LocalDateTable_c987ae5d-17f2-4b04-ab5d-17b286cce17f
+ref table ml_feature_importance
+ref table ml_model_performance
+ref table LocalDateTable_713bde89-9fa9-4021-afc6-e706ce567ea5
+ref table network_performance_by_region
+ref table LocalDateTable_9d10f91d-5663-4613-a8c2-66e8fbef2e2e
+ref table revenue_risk_by_segment
+ref table LocalDateTable_6af5d6e6-ef4c-4cd1-bf6a-179a443fc9c2
+ref table _Measures
+ref table 'Invoice Funnel Stages'
+ref table dim_network_location
+ref table dim_complaint_priority
+
+ref cultureInfo en-US
+

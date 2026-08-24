@@ -1,0 +1,122 @@
+table revenue_risk_by_segment
+	lineageTag: 1c59ee76-9ca3-4adc-881b-a59bbe0c361c
+
+	column contract_type
+		dataType: string
+		lineageTag: 9f35044a-b7aa-4ca3-8ac7-d65114511386
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column internet_service
+		dataType: string
+		lineageTag: ce01f5e0-84d8-468b-a82b-338108732767
+		summarizeBy: none
+		sourceColumn: internet_service
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_value_segment
+		dataType: string
+		lineageTag: 94cfde87-f030-467f-82ef-ebbc9e6dfefa
+		summarizeBy: none
+		sourceColumn: customer_value_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 1b4d3f7d-b761-4d36-9642-b83be9cbdd3b
+		summarizeBy: sum
+		sourceColumn: customer_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column churned_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: 25e03cef-92fb-4f6d-a8f7-0219ef9acabd
+		summarizeBy: sum
+		sourceColumn: churned_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_rate_pct
+		dataType: double
+		lineageTag: ae1ad23b-4d40-4cf7-88a8-2b977ab664c6
+		summarizeBy: sum
+		sourceColumn: churn_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column monthly_revenue
+		dataType: double
+		lineageTag: 90bf47a4-c602-407a-8727-7d349dfb986c
+		summarizeBy: sum
+		sourceColumn: monthly_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column actual_churn_revenue
+		dataType: double
+		lineageTag: 3e87646b-e6ee-48c3-ac17-b9f52cddae62
+		summarizeBy: sum
+		sourceColumn: actual_churn_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column business_risk_revenue
+		dataType: double
+		lineageTag: 62022193-1c94-4405-89a1-e5f909d61e44
+		summarizeBy: sum
+		sourceColumn: business_risk_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_risk_score
+		dataType: double
+		lineageTag: aa68658b-c782-49bb-b4c9-ba0f33e9fcf5
+		summarizeBy: sum
+		sourceColumn: average_risk_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _gold_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 117539f6-8d20-4288-881d-02a6018a83ff
+		summarizeBy: none
+		sourceColumn: _gold_created_at
+
+		variation Variation
+			isDefault
+			relationship: 6f10e61f-d035-42d6-845b-48931bf9cbd3
+			defaultHierarchy: LocalDateTable_6af5d6e6-ef4c-4cd1-bf6a-179a443fc9c2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition revenue_risk_by_segment = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    revenue_risk_by_segment_Table = telecom_gold_Schema{[Name="revenue_risk_by_segment",Kind="Table"]}[Data]
+				in
+				    revenue_risk_by_segment_Table
+
+	annotation PBI_ResultType = Table
+

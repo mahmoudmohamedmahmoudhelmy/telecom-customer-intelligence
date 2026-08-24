@@ -1,0 +1,194 @@
+table fact_billing
+	lineageTag: bfd0e97c-e1eb-448e-8da0-0e22214fc288
+
+	column invoice_id
+		dataType: string
+		lineageTag: 649aa6a3-c8e2-4647-a09b-84339ef87eca
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 922e6ede-6afd-4b8a-8d31-a41d92cc299e
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 8ae67fe7-6d96-4090-bffd-388d79aed880
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 05ed02ec-afc8-4393-9302-58b48e84e68f
+		summarizeBy: none
+		sourceColumn: billing_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 315a800c-9f92-44f7-91d3-3c1a1d479765
+		summarizeBy: sum
+		sourceColumn: payment_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f4dea649-4856-4738-9678-1dc4f4249f2f
+		summarizeBy: none
+		sourceColumn: billing_month
+
+		variation Variation
+			isDefault
+			relationship: 552081e2-4d26-495d-a390-9e9fb8fc629b
+			defaultHierarchy: LocalDateTable_314a33e5-0f57-4454-b56c-7dbf2ab19bb2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column payment_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bf3964a1-4d61-4639-b06e-fd6e9650406b
+		summarizeBy: none
+		sourceColumn: payment_date
+
+		variation Variation
+			isDefault
+			relationship: 0d071c65-6e6f-493c-a2e1-9fa8493c6df6
+			defaultHierarchy: LocalDateTable_69ac4789-d690-43da-8f16-b3432b84831f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_charges
+		dataType: double
+		lineageTag: b59f430c-b65f-497b-a7fe-5e99bbca296b
+		summarizeBy: sum
+		sourceColumn: monthly_charges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column usage_charges
+		dataType: double
+		lineageTag: 164f6ce5-54df-4b0e-98c9-70ae4a5deab8
+		summarizeBy: sum
+		sourceColumn: usage_charges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_amount
+		dataType: double
+		lineageTag: 336881b2-8ceb-4cbd-9305-79aed3562ec0
+		summarizeBy: sum
+		sourceColumn: discount_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tax_amount
+		dataType: double
+		lineageTag: d67a1bd4-cd25-413b-b95a-27d8550ac2d4
+		summarizeBy: sum
+		sourceColumn: tax_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_amount
+		dataType: double
+		lineageTag: 821b5178-9a16-4051-840f-43fe905abf18
+		summarizeBy: sum
+		sourceColumn: total_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column payment_method
+		dataType: string
+		lineageTag: 20f2d513-dd85-4405-a01d-6b0c754d1a5a
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_status
+		dataType: string
+		lineageTag: 2b860e99-c2b3-46cc-81c8-b56a3c7da55d
+		summarizeBy: none
+		sourceColumn: payment_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_paid
+		dataType: int64
+		formatString: 0
+		lineageTag: cedc1372-4f3a-4fd1-a098-345b3205edc3
+		summarizeBy: sum
+		sourceColumn: is_paid
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_late
+		dataType: int64
+		formatString: 0
+		lineageTag: d79b39b5-144a-4d42-80fb-faab06c5ef0d
+		summarizeBy: sum
+		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_unpaid
+		dataType: int64
+		formatString: 0
+		lineageTag: 77140c1e-8f00-4df1-8f56-329dffe52b29
+		summarizeBy: sum
+		sourceColumn: is_unpaid
+
+		annotation SummarizationSetBy = Automatic
+
+	column _gold_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 46cf685d-de4b-48fd-893d-8c23ea9c3311
+		summarizeBy: none
+		sourceColumn: _gold_created_at
+
+		variation Variation
+			isDefault
+			relationship: 404db6c0-1efb-4bbe-b87b-76241c9fb698
+			defaultHierarchy: LocalDateTable_34bdeffa-41c9-4740-abcf-4219d0cbfbee.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_billing = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    fact_billing_Table = telecom_gold_Schema{[Name="fact_billing",Kind="Table"]}[Data]
+				in
+				    fact_billing_Table
+

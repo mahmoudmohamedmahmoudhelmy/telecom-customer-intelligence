@@ -1,0 +1,253 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 573.46933171478008,
+            "y": 661.822025171072
+          },
+          "nodeIndex": "customer_churn_analytics",
+          "nodeLineageTag": "a3a2ec74-01a8-46e8-a229-a047f99b28f8",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1041.1006892653209,
+            "y": 303.72644373308935
+          },
+          "nodeIndex": "customer_churn_predictions",
+          "nodeLineageTag": "73aac43f-74d1-40ab-b1a2-924f6c6b0e9f",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 731.85418512093736,
+            "y": 1015.5591672485089
+          },
+          "nodeIndex": "customer_ml_features",
+          "nodeLineageTag": "9065be1a-0803-412d-9b14-207a6aa96d19",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 369.63111225573857,
+            "y": 308.13725671478164
+          },
+          "nodeIndex": "dim_customer",
+          "nodeLineageTag": "68263245-521c-4431-8d25-c8b5589cd9de",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1275.1006892653209,
+            "y": 532.78480411210364
+          },
+          "nodeIndex": "dim_date",
+          "nodeLineageTag": "c244258d-e9c0-4f52-86c5-389831963b90",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1559.1006892653209,
+            "y": 532.78480411210364
+          },
+          "nodeIndex": "executive_kpis",
+          "nodeLineageTag": "10367cd1-b5b7-4202-8e47-e38a0d92acb6",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 308.17888515828849
+          },
+          "nodeIndex": "fact_billing",
+          "nodeLineageTag": "bfd0e97c-e1eb-448e-8da0-0e22214fc288",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 156.82327086739565,
+            "y": 661.81660926621134
+          },
+          "nodeIndex": "fact_complaints",
+          "nodeLineageTag": "82eeaea8-c2ab-4ea6-90a8-e3878ceac75e",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 758.78598889545765,
+            "y": -50
+          },
+          "nodeIndex": "fact_network_events",
+          "nodeLineageTag": "8d6bd4f1-87d7-43e2-9977-8e51a52d96a5",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 398.36602132221572,
+            "y": 1015.5696082242073
+          },
+          "nodeIndex": "high_risk_customers",
+          "nodeLineageTag": "60047071-7503-470f-a69f-4daff5362cc9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1843.1006892653209,
+            "y": 618.78480411210364
+          },
+          "nodeIndex": "ml_feature_importance",
+          "nodeLineageTag": "06fd9c44-c7cd-448b-b09a-6bceda1b66af",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 655.646738182029,
+            "y": 302.71151174421618
+          },
+          "nodeIndex": "ml_model_performance",
+          "nodeLineageTag": "2a3c78ec-af8b-4a32-9a09-a9fc2d2e6657",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 328.89466278136166,
+            "y": -45.751589563819607
+          },
+          "nodeIndex": "network_performance_by_region",
+          "nodeLineageTag": "9ad451db-c097-4880-9a0b-76880c728c04",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2127.1006892653209,
+            "y": 532.78480411210364
+          },
+          "nodeIndex": "revenue_risk_by_segment",
+          "nodeLineageTag": "1c59ee76-9ca3-4adc-881b-a59bbe0c361c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2361.1006892653209,
+            "y": 582.78480411210364
+          },
+          "nodeIndex": "_Measures",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2595.1006892653209,
+            "y": 582.78480411210364
+          },
+          "nodeIndex": "Invoice Funnel Stages",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2829.1006892653209,
+            "y": 534.78480411210364
+          },
+          "nodeIndex": "dim_network_location",
+          "nodeLineageTag": "64c715d9-ba3d-4db1-8bd6-f01da79cd7eb",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3063.1006892653209,
+            "y": 582.78480411210364
+          },
+          "nodeIndex": "dim_complaint_priority",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 31.863081771035688,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

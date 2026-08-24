@@ -1,0 +1,1042 @@
+table _Measures
+	lineageTag: 1fdaf10b-e420-40b0-a270-92dfda6c2c11
+
+	measure 'Total Customers' = DISTINCTCOUNT('dim_customer'[customer_id])
+		formatString: #,0
+		displayFolder: 01 Executive
+		lineageTag: 8acf6f40-92d1-4228-a773-0ae3cd067036
+
+	measure 'Active Customers' =
+			CALCULATE(
+				[Total Customers],
+				'dim_customer'[churn_label] = 0
+			)
+		formatString: #,0
+		displayFolder: 01 Executive
+		lineageTag: 391ec022-c33b-440b-b74b-f12ebd654ea0
+
+	measure 'Actual Churn Rate %' = DIVIDE([Churned Customers], [Total Customers])
+		formatString: 0.0%
+		displayFolder: 01 Executive
+		lineageTag: 5b5dadf4-60f9-420d-9847-3790c65db1dc
+
+	measure 'High Risk Active Customers' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(
+			        'customer_churn_predictions'[customer_id]
+			    ),
+			    'customer_churn_predictions'[actual_churn_label] = 0,
+			    'customer_churn_predictions'[predicted_churn_label] = 1
+			)
+		formatString: #,0
+		displayFolder: 01 Executive
+		lineageTag: 1daea40a-3789-4f40-9359-06b5f3887dab
+
+	measure 'Active MRR' =
+			CALCULATE(
+				SUM('dim_customer'[monthly_charges]),
+				'dim_customer'[churn_label] = 0
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Executive
+		lineageTag: 89327dcb-a874-43c4-872a-f814ccb7eb96
+
+	measure 'Risk Adjusted ARR Exposure' =
+			SUMX(
+				FILTER(
+					VALUES('dim_customer'[customer_id]),
+					CALCULATE(MAX('dim_customer'[churn_label])) = 0
+				),
+				VAR CustomerProbability =
+					CALCULATE(MAX('customer_churn_predictions'[churn_probability]))
+				VAR CustomerMRR =
+					CALCULATE(MAX('dim_customer'[monthly_charges]))
+				RETURN
+					COALESCE(CustomerProbability, 0)
+						* COALESCE(CustomerMRR, 0)
+						* 12
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Executive
+		lineageTag: 1f9a86b5-fe04-489f-8d04-6c9c5e444872
+
+	measure 'Collection Rate %' = DIVIDE([Collected Revenue], [Total Billed Revenue])
+		formatString: 0.0%
+		displayFolder: 01 Executive
+		lineageTag: fe9286bb-f10b-4d49-b6a5-7bec7c2c0ef9
+
+	measure 'Network Health Score' =
+			VAR ReliabilityScore =
+				100 * (1 - MIN([Network Incident Rate %], 1))
+			VAR LatencyScore =
+				100 * (1 - MIN(DIVIDE([Average Latency ms], 200), 1))
+			VAR PacketLossScore =
+				100 * (1 - MIN(DIVIDE([Average Packet Loss %], 10), 1))
+			VAR SpeedScore =
+				100 * MIN(DIVIDE([Average Download Speed Mbps], 100), 1)
+			RETURN
+				0.40 * ReliabilityScore
+					+ 0.25 * LatencyScore
+					+ 0.20 * PacketLossScore
+					+ 0.15 * SpeedScore
+		formatString: 0.0
+		displayFolder: 01 Executive
+		lineageTag: 66d1fb3e-6297-4aed-9d32-9d878d1746ef
+
+	measure 'Churned Customers' =
+			CALCULATE(
+				[Total Customers],
+				'dim_customer'[churn_label] = 1
+			)
+		formatString: #,0
+		displayFolder: 02 Customer & Churn\Base
+		lineageTag: 8b0fd250-4be4-4287-83f7-28cff23e0203
+
+	measure 'Active Customer Rate %' = DIVIDE([Active Customers], [Total Customers])
+		formatString: 0.0%
+		displayFolder: 02 Customer & Churn\Base
+		lineageTag: 6b5b8bf6-40bd-4815-a86d-a354b24817fe
+
+	measure 'Average Customer Tenure Months' = AVERAGE('dim_customer'[tenure_months])
+		formatString: 0.0
+		displayFolder: 02 Customer & Churn\Base
+		lineageTag: 12114d6a-d23a-4e74-b004-1503517e2ae1
+
+	measure 'Active ARPU' = DIVIDE([Active MRR], [Active Customers])
+		formatString: EGP #,0.00
+		displayFolder: 02 Customer & Churn\Base
+		lineageTag: 6faed0fd-193a-456e-b8de-249ea7f8c2be
+
+	measure 'Active ARR' = [Active MRR] * 12
+		formatString: EGP #,0
+		displayFolder: 02 Customer & Churn\Base
+		lineageTag: d6da2016-3315-4c6f-a8b7-d8971759d2ef
+
+	measure 'Scored Customers' = DISTINCTCOUNT('customer_churn_predictions'[customer_id])
+		formatString: #,0
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 4d38507f-e188-48f1-949b-df4efaa0ac75
+
+	measure 'Prediction Coverage %' = DIVIDE([Scored Customers], [Total Customers])
+		formatString: 0.0%
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 3de78957-22fc-4f60-a6ac-7c3631802aac
+
+	measure 'Critical Risk Active Customers' =
+			CALCULATE(
+				DISTINCTCOUNT('customer_churn_predictions'[customer_id]),
+				'customer_churn_predictions'[actual_churn_label] = 0,
+				'customer_churn_predictions'[churn_probability] >= 0.85
+			)
+		formatString: #,0
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 24621dfb-560b-4898-8975-56418f767fa8
+
+	measure 'High Risk Active Rate %' = DIVIDE([High Risk Active Customers], [Active Customers])
+		formatString: 0.0%
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 1af4bbb0-1e0f-440f-b131-f3eac3510602
+
+	measure 'Average Active Churn Probability %' =
+			CALCULATE(
+				AVERAGE('customer_churn_predictions'[churn_probability]),
+				'customer_churn_predictions'[actual_churn_label] = 0
+			)
+		formatString: 0.0%
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 57209bc6-d86c-40a0-b7ce-9ec5fc5abd75
+
+	measure 'Expected Active Churners' =
+			SUMX(
+				FILTER(
+					VALUES('customer_churn_predictions'[customer_id]),
+					CALCULATE(MAX('customer_churn_predictions'[actual_churn_label])) = 0
+				),
+				CALCULATE(MAX('customer_churn_predictions'[churn_probability]))
+			)
+		formatString: #,0.0
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 5be15874-f927-4c30-ae6f-334748cc779c
+
+	measure 'High Risk Active MRR' =
+			SUMX(
+				FILTER(
+					VALUES('dim_customer'[customer_id]),
+					CALCULATE(MAX('dim_customer'[churn_label])) = 0
+						&& CALCULATE(MAX('customer_churn_predictions'[churn_probability])) >= 0.70
+				),
+				CALCULATE(MAX('dim_customer'[monthly_charges]))
+			)
+		formatString: EGP #,0
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 62dd452d-1dce-47ae-93d2-5cdba4b26db3
+
+	measure 'High Risk MRR Share %' = DIVIDE([High Risk Active MRR], [Active MRR])
+		formatString: 0.0%
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 437ed93a-ebf7-4679-90e8-842b87a89217
+
+	measure 'Revenue Exposure %' = DIVIDE([Risk Adjusted ARR Exposure], [Active ARR])
+		formatString: 0.0%
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: b709c788-046b-4a72-9348-35b7fc4fbe25
+
+	measure 'Exposure per High Risk Customer' = DIVIDE([Risk Adjusted ARR Exposure], [High Risk Active Customers])
+		formatString: EGP #,0
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: d14dadf6-0109-4efa-a734-4b8b30ab0b85
+
+	measure 'High Value High Risk Customers' =
+			VAR SelectedARPU = [Active ARPU]
+			RETURN
+				COUNTROWS(
+					FILTER(
+						VALUES('dim_customer'[customer_id]),
+						CALCULATE(MAX('dim_customer'[churn_label])) = 0
+							&& CALCULATE(MAX('customer_churn_predictions'[churn_probability])) >= 0.70
+							&& CALCULATE(MAX('dim_customer'[monthly_charges])) >= SelectedARPU
+					)
+				)
+		formatString: #,0
+		displayFolder: 02 Customer & Churn\Risk
+		lineageTag: 83c06e82-c1ef-4d09-9581-9e5b113d61de
+
+	measure 'Total Invoices' = DISTINCTCOUNT('fact_billing'[invoice_id])
+		formatString: #,0
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: 3fd388fb-7fa8-4150-a63f-e41990247a3b
+
+	measure 'Unpaid Invoices' = SUM('fact_billing'[is_unpaid])
+		formatString: #,0
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: 12493cf7-92c5-492d-89c9-e45f8010b1c7
+
+	measure 'Total Billed Revenue' = SUM('fact_billing'[total_amount])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: 671f1f1d-9aa1-4ab4-9cf0-4b4296053b27
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Collected Revenue' =
+			CALCULATE(
+				[Total Billed Revenue],
+				'fact_billing'[is_unpaid] = 0
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: 14ff9fdc-807c-4bf5-940a-f724b38f37d1
+
+	measure 'Outstanding Revenue' =
+			CALCULATE(
+				[Total Billed Revenue],
+				'fact_billing'[is_unpaid] = 1
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: 38e37136-16f6-4cf1-9df9-b08bb3be4f0d
+
+	measure 'Outstanding Revenue %' = DIVIDE([Outstanding Revenue], [Total Billed Revenue])
+		formatString: 0.0%
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: 8c1c9876-1835-4c50-b27f-a8311527ea2b
+
+	measure 'On Time Payment Rate %' = DIVIDE(SUM('fact_billing'[is_paid]), [Total Invoices])
+		formatString: 0.0%
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: 4145ebb6-a79d-4b65-b0eb-78e97150fdf4
+
+	measure 'Late Invoice Rate %' = DIVIDE(SUM('fact_billing'[is_late]), [Total Invoices])
+		formatString: 0.0%
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: bb641b21-687b-4675-8044-25f01ae6b211
+
+	measure 'Average Invoice Value' = AVERAGE('fact_billing'[total_amount])
+		formatString: EGP #,0.00
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: d9a3df24-1948-4e49-bd32-d5e850e3e587
+
+	measure 'Discount Rate %' =
+			DIVIDE(
+				SUM('fact_billing'[discount_amount]),
+				SUM('fact_billing'[monthly_charges]) + SUM('fact_billing'[usage_charges])
+			)
+		formatString: 0.0%
+		displayFolder: 03 Revenue & Billing\Base
+		lineageTag: 0efbb369-6073-49b4-8b75-47bebd7663b2
+
+	measure 'Billed Revenue Latest Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			VAR MonthStart = DATE(YEAR(AnchorDate), MONTH(AnchorDate), 1)
+			RETURN
+				CALCULATE(
+					[Total Billed Revenue],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN('dim_date'[full_date], MonthStart, EOMONTH(AnchorDate, 0))
+				)
+		formatString: EGP #,0
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 0f2a92e8-4d89-4366-81fe-7aeac1ab23ae
+
+	measure 'Billed Revenue Previous Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			VAR PreviousMonthStart = EOMONTH(AnchorDate, -2) + 1
+			VAR PreviousMonthEnd = EOMONTH(AnchorDate, -1)
+			RETURN
+				CALCULATE(
+					[Total Billed Revenue],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN('dim_date'[full_date], PreviousMonthStart, PreviousMonthEnd)
+				)
+		formatString: EGP #,0
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: c7468b22-6261-42d1-827b-84a84f88939c
+
+	measure 'Billed Revenue MoM %' =
+			DIVIDE(
+				[Billed Revenue Latest Month] - [Billed Revenue Previous Month],
+				[Billed Revenue Previous Month]
+			)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 797e9f71-254e-42eb-94e0-03f22f14c49d
+
+	measure 'Billed Revenue Rolling 3M Average' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			VAR RollingStart = EOMONTH(AnchorDate, -3) + 1
+			VAR RollingTotal =
+				CALCULATE(
+					[Total Billed Revenue],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN('dim_date'[full_date], RollingStart, EOMONTH(AnchorDate, 0))
+				)
+			RETURN
+				DIVIDE(RollingTotal, 3)
+		formatString: EGP #,0
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 93a6e998-15ce-436a-be9f-0decad95d458
+
+	measure 'Billed Revenue YTD' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Total Billed Revenue],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						DATE(YEAR(AnchorDate), 1, 1),
+						AnchorDate
+					)
+				)
+		formatString: EGP #,0
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 6dc3e6fa-db99-4c95-9d35-a7e49c64f606
+
+	measure 'Outstanding Revenue Latest Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			VAR MonthStart = DATE(YEAR(AnchorDate), MONTH(AnchorDate), 1)
+			RETURN
+				CALCULATE(
+					[Outstanding Revenue],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN('dim_date'[full_date], MonthStart, EOMONTH(AnchorDate, 0))
+				)
+		formatString: EGP #,0
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 6fb1d410-95d9-41c9-a192-ab4a558c2f73
+
+	measure 'Outstanding Revenue Previous Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Outstanding Revenue],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						EOMONTH(AnchorDate, -2) + 1,
+						EOMONTH(AnchorDate, -1)
+					)
+				)
+		formatString: EGP #,0
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 62705d1b-b035-466c-8fe6-0898e2e19a53
+
+	measure 'Outstanding Revenue MoM %' =
+			DIVIDE(
+				[Outstanding Revenue Latest Month] - [Outstanding Revenue Previous Month],
+				[Outstanding Revenue Previous Month]
+			)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: d19e634b-ed62-4329-a17c-042bfa2ce574
+
+	measure 'Collection Rate Latest Month %' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			VAR MonthStart = DATE(YEAR(AnchorDate), MONTH(AnchorDate), 1)
+			RETURN
+				CALCULATE(
+					[Collection Rate %],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN('dim_date'[full_date], MonthStart, EOMONTH(AnchorDate, 0))
+				)
+		formatString: 0.0%
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 433878e2-c3ce-45a9-b247-b47a23a44402
+
+	measure 'Collection Rate Previous Month %' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Collection Rate %],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						EOMONTH(AnchorDate, -2) + 1,
+						EOMONTH(AnchorDate, -1)
+					)
+				)
+		formatString: 0.0%
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 5d419f93-5646-46a5-9987-b5f03b677c50
+
+	measure 'Collection Rate Change pp' = 100 * ([Collection Rate Latest Month %] - [Collection Rate Previous Month %])
+		formatString: +0.0 "pp";-0.0 "pp";0.0 "pp"
+		displayFolder: 03 Revenue & Billing\Time Intelligence
+		lineageTag: 49580793-febf-410a-a4c4-e22256fbafc5
+
+	measure 'Total Complaints' = DISTINCTCOUNT('fact_complaints'[complaint_id])
+		formatString: #,0
+		displayFolder: 04 Complaints\Base
+		lineageTag: 8782d2ff-629b-4117-9439-76b2aa193d1b
+
+	measure 'Customers with Complaints' = DISTINCTCOUNT('fact_complaints'[customer_id])
+		formatString: #,0
+		displayFolder: 04 Complaints\Base
+		lineageTag: 0f3f52cb-75f4-4956-b024-0ab7b6d337a7
+
+	measure 'Complaints per 1K Customers' = 1000 * DIVIDE([Total Complaints], [Total Customers])
+		formatString: #,0.0
+		displayFolder: 04 Complaints\Base
+		lineageTag: 1c5b6aa2-a27c-4a1a-9dd2-61f4049c4d0c
+
+	measure 'Resolved Complaints' =
+			CALCULATE(
+				[Total Complaints],
+				'fact_complaints'[is_unresolved] = 0
+			)
+		formatString: #,0
+		displayFolder: 04 Complaints\Base
+		lineageTag: d1caa34d-49a6-4734-b5c9-a1cb3f75069b
+
+	measure 'Unresolved Complaints' = SUM('fact_complaints'[is_unresolved])
+		formatString: #,0
+		displayFolder: 04 Complaints\Base
+		lineageTag: 9f0325f3-5055-4b43-9529-c0509c320052
+
+	measure 'Unresolved Complaint Rate %' = DIVIDE([Unresolved Complaints], [Total Complaints])
+		formatString: 0.0%
+		displayFolder: 04 Complaints\Base
+		lineageTag: 845ea54b-cb4c-46f5-abb1-7b4854fbc341
+
+	measure 'Critical Complaint Rate %' = DIVIDE(SUM('fact_complaints'[is_critical]), [Total Complaints])
+		formatString: 0.0%
+		displayFolder: 04 Complaints\Base
+		lineageTag: 1fa4ac73-72a1-4239-b7bc-35b75e03de18
+
+	measure 'Escalation Rate %' = DIVIDE(SUM('fact_complaints'[is_escalated]), [Total Complaints])
+		formatString: 0.0%
+		displayFolder: 04 Complaints\Base
+		lineageTag: dcb7e2df-4e03-4c12-b54c-e4c4d643dd8c
+
+	measure 'SLA Compliance 48h %' =
+			VAR ResolvedWithinSLA =
+				CALCULATE(
+					[Total Complaints],
+					'fact_complaints'[is_unresolved] = 0,
+					'fact_complaints'[resolution_hours] <= 48
+				)
+			RETURN
+				DIVIDE(ResolvedWithinSLA, [Resolved Complaints])
+		formatString: 0.0%
+		displayFolder: 04 Complaints\Base
+		lineageTag: e0b43f78-6410-4823-9f4e-accfd74c5ceb
+
+	measure 'Average Resolution Hours' =
+			CALCULATE(
+				AVERAGE('fact_complaints'[resolution_hours]),
+				'fact_complaints'[is_unresolved] = 0
+			)
+		formatString: 0.0
+		displayFolder: 04 Complaints\Base
+		lineageTag: b9d4e9f9-443e-4bfa-adb3-66e60f7869bf
+
+	measure 'Average Satisfaction Score' = AVERAGE('fact_complaints'[satisfaction_score])
+		formatString: 0.00
+		displayFolder: 04 Complaints\Base
+		lineageTag: 6732bc01-f181-40e1-b237-207f43932eda
+
+	measure 'Repeat Complainer Rate %' =
+			VAR ComplaintCustomers =
+				FILTER(
+					VALUES('dim_customer'[customer_id]),
+					CALCULATE(DISTINCTCOUNT('fact_complaints'[complaint_id])) > 0
+				)
+			VAR RepeatCustomers =
+				FILTER(
+					ComplaintCustomers,
+					CALCULATE(DISTINCTCOUNT('fact_complaints'[complaint_id])) > 1
+				)
+			RETURN
+				DIVIDE(COUNTROWS(RepeatCustomers), COUNTROWS(ComplaintCustomers))
+		formatString: 0.0%
+		displayFolder: 04 Complaints\Base
+		lineageTag: 6924b8e8-5e47-4928-8fda-3bfac7ea0032
+
+	measure 'Complaints Latest Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Total Complaints],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						DATE(YEAR(AnchorDate), MONTH(AnchorDate), 1),
+						EOMONTH(AnchorDate, 0)
+					)
+				)
+		formatString: #,0
+		displayFolder: 04 Complaints\Time Intelligence
+		lineageTag: e2a34f9b-73ce-4ddb-8341-3c283d69e707
+
+	measure 'Complaints Previous Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Total Complaints],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						EOMONTH(AnchorDate, -2) + 1,
+						EOMONTH(AnchorDate, -1)
+					)
+				)
+		formatString: #,0
+		displayFolder: 04 Complaints\Time Intelligence
+		lineageTag: 9ea0c0db-a417-4759-80f4-498ed57b5d97
+
+	measure 'Complaints MoM %' =
+			DIVIDE(
+				[Complaints Latest Month] - [Complaints Previous Month],
+				[Complaints Previous Month]
+			)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 04 Complaints\Time Intelligence
+		lineageTag: a027b3ce-9cf0-403e-ac9f-66814e97d1a9
+
+	measure 'Complaints Rolling 3M Average' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			VAR RollingTotal =
+				CALCULATE(
+					[Total Complaints],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						EOMONTH(AnchorDate, -3) + 1,
+						EOMONTH(AnchorDate, 0)
+					)
+				)
+			RETURN
+				DIVIDE(RollingTotal, 3)
+		formatString: #,0.0
+		displayFolder: 04 Complaints\Time Intelligence
+		lineageTag: de81851c-7dcb-4bdd-9e2c-de5fb7ec0a41
+
+	measure 'Unresolved Complaints Latest Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Unresolved Complaints],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						DATE(YEAR(AnchorDate), MONTH(AnchorDate), 1),
+						EOMONTH(AnchorDate, 0)
+					)
+				)
+		formatString: #,0
+		displayFolder: 04 Complaints\Time Intelligence
+		lineageTag: d4f62fa9-275e-46a3-b9df-72c97da72fb2
+
+	measure 'Unresolved Complaints Previous Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Unresolved Complaints],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						EOMONTH(AnchorDate, -2) + 1,
+						EOMONTH(AnchorDate, -1)
+					)
+				)
+		formatString: #,0
+		displayFolder: 04 Complaints\Time Intelligence
+		lineageTag: 39046a5f-626b-4f1d-ad76-4d2ea4b9f65c
+
+	measure 'Unresolved Complaints MoM %' =
+			DIVIDE(
+				[Unresolved Complaints Latest Month] - [Unresolved Complaints Previous Month],
+				[Unresolved Complaints Previous Month]
+			)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 04 Complaints\Time Intelligence
+		lineageTag: 5e696545-fa79-4bbd-b3b8-dc1cb94bc0e4
+
+	measure 'Total Network Events' = DISTINCTCOUNT('fact_network_events'[event_id])
+		formatString: #,0
+		displayFolder: 05 Network\Base
+		lineageTag: 32eb6a94-0abe-49cb-aaa5-eb6c56e1e7ea
+
+	measure 'Network Incidents' =
+			CALCULATE(
+				[Total Network Events],
+				'fact_network_events'[event_type] <> "Normal"
+			)
+		formatString: #,0
+		displayFolder: 05 Network\Base
+		lineageTag: 5137643f-c4b7-4623-9e3e-f76be0e146e3
+
+	measure 'Network Incident Rate %' = DIVIDE([Network Incidents], [Total Network Events])
+		formatString: 0.0%
+		displayFolder: 05 Network\Base
+		lineageTag: d89747b8-cf3a-465c-9c35-918be94a2252
+
+	measure 'Incident Affected Customers' =
+			CALCULATE(
+				DISTINCTCOUNT('fact_network_events'[customer_id]),
+				'fact_network_events'[event_type] <> "Normal"
+			)
+		formatString: #,0
+		displayFolder: 05 Network\Base
+		lineageTag: 166ca281-d51f-4cda-85dd-a38c6d582c73
+
+	measure 'Outage Events' = SUM('fact_network_events'[is_outage])
+		formatString: #,0
+		displayFolder: 05 Network\Base
+		lineageTag: 4f97c66d-d5f0-442c-a69d-8fcd73dce1a8
+
+	measure 'Degraded Events' = SUM('fact_network_events'[is_degraded])
+		formatString: #,0
+		displayFolder: 05 Network\Base
+		lineageTag: b1e7f00b-4b41-4e0d-8dae-f5427f740ed9
+
+	measure 'Total Outage Minutes' = SUM('fact_network_events'[outage_minutes])
+		formatString: #,0
+		displayFolder: 05 Network\Base
+		lineageTag: 902384c5-2e89-4362-893f-a8592d3859cb
+
+	measure 'Average Outage Duration Minutes' = DIVIDE([Total Outage Minutes], [Outage Events])
+		formatString: #,0.0
+		displayFolder: 05 Network\Base
+		lineageTag: 11ef93e3-12b5-40fb-a198-8965508e315a
+
+	measure 'Average Latency ms' = AVERAGE('fact_network_events'[latency_ms])
+		formatString: #,0.0
+		displayFolder: 05 Network\Base
+		lineageTag: e6386515-155e-4016-b3cc-e96e9ba15f66
+
+	measure 'Average Packet Loss %' = AVERAGE('fact_network_events'[packet_loss_pct])
+		formatString: 0.00
+		displayFolder: 05 Network\Base
+		lineageTag: 9f11145a-c802-4240-8a98-27e4984c8c98
+
+	measure 'Average Download Speed Mbps' = AVERAGE('fact_network_events'[download_speed_mbps])
+		formatString: #,0.0
+		displayFolder: 05 Network\Base
+		lineageTag: 1be82fb2-9e4f-411d-8b5c-47d2934a4539
+
+	measure 'Network Health Latest Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Network Health Score],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						DATE(YEAR(AnchorDate), MONTH(AnchorDate), 1),
+						EOMONTH(AnchorDate, 0)
+					)
+				)
+		formatString: 0.0
+		displayFolder: 05 Network\Time Intelligence
+		lineageTag: 45231e2b-0d9e-4430-9432-09135114b5c4
+
+	measure 'Network Health Previous Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Network Health Score],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						EOMONTH(AnchorDate, -2) + 1,
+						EOMONTH(AnchorDate, -1)
+					)
+				)
+		formatString: 0.0
+		displayFolder: 05 Network\Time Intelligence
+		lineageTag: 446209af-fbc2-4744-908a-2da01b11e97e
+
+	measure 'Network Health Change Points' = [Network Health Latest Month] - [Network Health Previous Month]
+		formatString: +0.0 "pts";-0.0 "pts";0.0 "pts"
+		displayFolder: 05 Network\Time Intelligence
+		lineageTag: f514dc2e-51cd-482f-8e4f-2b6e4267086a
+
+	measure 'Outage Minutes Latest Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Total Outage Minutes],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						DATE(YEAR(AnchorDate), MONTH(AnchorDate), 1),
+						EOMONTH(AnchorDate, 0)
+					)
+				)
+		formatString: #,0
+		displayFolder: 05 Network\Time Intelligence
+		lineageTag: 3b25c769-8303-4771-9ae9-c7b4cb1d064b
+
+	measure 'Outage Minutes Previous Month' =
+			VAR AnchorDate = MAX('dim_date'[full_date])
+			RETURN
+				CALCULATE(
+					[Total Outage Minutes],
+					REMOVEFILTERS('dim_date'),
+					DATESBETWEEN(
+						'dim_date'[full_date],
+						EOMONTH(AnchorDate, -2) + 1,
+						EOMONTH(AnchorDate, -1)
+					)
+				)
+		formatString: #,0
+		displayFolder: 05 Network\Time Intelligence
+		lineageTag: 7db256a3-75be-4689-beda-a7b0f8ec8793
+
+	measure 'Outage Minutes MoM %' =
+			DIVIDE(
+				[Outage Minutes Latest Month] - [Outage Minutes Previous Month],
+				[Outage Minutes Previous Month]
+			)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: 05 Network\Time Intelligence
+		lineageTag: d39dda61-2d42-4278-99e2-c77793d17b21
+
+	measure 'Latest Best Model' =
+			MAXX(
+				TOPN(
+					1,
+					ALLSELECTED('ml_model_performance'),
+					'ml_model_performance'[evaluation_timestamp], DESC,
+					'ml_model_performance'[roc_auc], DESC
+				),
+				'ml_model_performance'[model_name]
+			)
+		displayFolder: 06 ML Performance
+		lineageTag: 42b46641-c68d-43c9-ba06-cb3abfd8adcd
+
+	measure 'Latest Model Accuracy %' =
+			MAXX(
+				TOPN(
+					1,
+					ALLSELECTED('ml_model_performance'),
+					'ml_model_performance'[evaluation_timestamp], DESC,
+					'ml_model_performance'[roc_auc], DESC
+				),
+				'ml_model_performance'[accuracy]
+			)
+		formatString: 0.0%
+		displayFolder: 06 ML Performance
+		lineageTag: 17519b5a-96eb-4a04-8b39-00d92ff84249
+
+	measure 'Latest Model Precision %' =
+			MAXX(
+				TOPN(
+					1,
+					ALLSELECTED('ml_model_performance'),
+					'ml_model_performance'[evaluation_timestamp], DESC,
+					'ml_model_performance'[roc_auc], DESC
+				),
+				'ml_model_performance'[precision]
+			)
+		formatString: 0.0%
+		displayFolder: 06 ML Performance
+		lineageTag: d5095b2d-c17b-4979-a185-1453cd3efcba
+
+	measure 'Latest Model Recall %' =
+			MAXX(
+				TOPN(
+					1,
+					ALLSELECTED('ml_model_performance'),
+					'ml_model_performance'[evaluation_timestamp], DESC,
+					'ml_model_performance'[roc_auc], DESC
+				),
+				'ml_model_performance'[recall]
+			)
+		formatString: 0.0%
+		displayFolder: 06 ML Performance
+		lineageTag: 251d9025-bb4a-4a23-ab5c-abe6e348fe59
+
+	measure 'Latest Model F1 %' =
+			MAXX(
+				TOPN(
+					1,
+					ALLSELECTED('ml_model_performance'),
+					'ml_model_performance'[evaluation_timestamp], DESC,
+					'ml_model_performance'[roc_auc], DESC
+				),
+				'ml_model_performance'[f1_score]
+			)
+		formatString: 0.0%
+		displayFolder: 06 ML Performance
+		lineageTag: 3dec7408-e2b9-49ca-a443-218bbaf507c0
+
+	measure 'Latest Model ROC AUC %' =
+			MAXX(
+				TOPN(
+					1,
+					ALLSELECTED('ml_model_performance'),
+					'ml_model_performance'[evaluation_timestamp], DESC,
+					'ml_model_performance'[roc_auc], DESC
+				),
+				'ml_model_performance'[roc_auc]
+			)
+		formatString: 0.0%
+		displayFolder: 06 ML Performance
+		lineageTag: bc484b0b-7298-4850-8cb3-ae829f3f7eca
+
+	measure 'False Negative Customers' =
+			CALCULATE(
+				DISTINCTCOUNT('customer_churn_predictions'[customer_id]),
+				'customer_churn_predictions'[actual_churn_label] = 1,
+				'customer_churn_predictions'[predicted_churn_label] = 0
+			)
+		formatString: #,0
+		displayFolder: 06 ML Performance
+		lineageTag: b347e2d8-8412-44ab-8006-264deea450db
+
+	measure 'False Negative Rate %' =
+			VAR ActualChurnersScored =
+				CALCULATE(
+					DISTINCTCOUNT('customer_churn_predictions'[customer_id]),
+					'customer_churn_predictions'[actual_churn_label] = 1
+				)
+			RETURN
+				DIVIDE([False Negative Customers], ActualChurnersScored)
+		formatString: 0.0%
+		displayFolder: 06 ML Performance
+		lineageTag: 00439083-35b5-4b71-90ef-b57aeb0bea45
+
+	measure 'Top Churn Driver' =
+			MAXX(
+				TOPN(
+					1,
+					ALLSELECTED('ml_feature_importance'),
+					'ml_feature_importance'[importance], DESC,
+					'ml_feature_importance'[feature_name], ASC
+				),
+				'ml_feature_importance'[feature_name]
+			)
+		displayFolder: 06 ML Performance
+		lineageTag: da6bd983-a353-4bf5-a33b-413dbadde4bd
+
+	measure 'Top Driver Importance %' = MAX('ml_feature_importance'[importance])
+		formatString: 0.0%
+		displayFolder: 06 ML Performance
+		lineageTag: cb15c976-b85f-44cd-8e0c-62d408ec89ec
+
+	measure 'Selected Period Label' =
+			VAR StartDate = MIN('dim_date'[full_date])
+			VAR EndDate = MAX('dim_date'[full_date])
+			RETURN
+				FORMAT(StartDate, "dd MMM yyyy")
+					& " — "
+					& FORMAT(EndDate, "dd MMM yyyy")
+		displayFolder: 07 UX\Labels
+		lineageTag: 7521cf14-b0c7-4833-9ac4-031f699a3cd4
+
+	measure 'Latest Visible Month Label' = FORMAT(MAX('dim_date'[full_date]), "MMM yyyy")
+		displayFolder: 07 UX\Labels
+		lineageTag: 1253ba9a-98e9-4c02-896d-dc7a5f13681a
+
+	measure 'Executive Subtitle' =
+			[Selected Period Label]
+				& "  |  "
+				& FORMAT([Total Customers], "#,0")
+				& " customers"
+		displayFolder: 07 UX\Labels
+		lineageTag: 8cce3dc9-1f67-4c0b-a054-e526f5044e7e
+
+	measure 'Revenue Trend Label' =
+			VAR ChangeValue = [Billed Revenue MoM %]
+			RETURN
+				IF(
+					ISBLANK(ChangeValue),
+					"No prior month",
+					FORMAT(ChangeValue, "+0.0%;-0.0%;0.0%") & " vs prior month"
+				)
+		displayFolder: 07 UX\Labels
+		lineageTag: 87f80586-0f91-41a6-bd32-9c049dae15d3
+
+	measure 'Churn Risk Status' =
+			SWITCH(
+				TRUE(),
+				[High Risk Active Rate %] >= 0.20, "Critical",
+				[High Risk Active Rate %] >= 0.10, "Watch",
+				"Stable"
+			)
+		displayFolder: 07 UX\Labels
+		lineageTag: 99de35b1-520b-4afa-b0b6-cadc9e99b9e3
+
+	measure 'Network Health Status' =
+			SWITCH(
+				TRUE(),
+				[Network Health Latest Month] >= 80, "Healthy",
+				[Network Health Latest Month] >= 65, "Watch",
+				"Critical"
+			)
+		displayFolder: 07 UX\Labels
+		lineageTag: 293953fa-4ded-4660-aed8-d2f28a178fcf
+
+	measure 'Revenue Trend Color' = IF([Billed Revenue MoM %] >= 0, "#23C483", "#FF3B3B")
+		displayFolder: 07 UX\Conditional Formatting
+		lineageTag: 65eb9af3-dcd8-4bea-8430-010172d3d084
+
+	measure 'Churn Risk Color' =
+			SWITCH(
+				TRUE(),
+				[High Risk Active Rate %] >= 0.20, "#FF3B3B",
+				[High Risk Active Rate %] >= 0.10, "#FFB020",
+				"#23C483"
+			)
+		displayFolder: 07 UX\Conditional Formatting
+		lineageTag: 5addf222-b751-4b93-b0ea-13469cfde20a
+
+	measure 'Collection Rate Color' =
+			SWITCH(
+				TRUE(),
+				[Collection Rate Latest Month %] >= 0.90, "#23C483",
+				[Collection Rate Latest Month %] >= 0.80, "#FFB020",
+				"#FF3B3B"
+			)
+		displayFolder: 07 UX\Conditional Formatting
+		lineageTag: 2aabc73e-69d6-4da3-b7d3-9bce75f1f96c
+
+	measure 'Complaint Trend Color' =
+			SWITCH(
+				TRUE(),
+				[Complaints MoM %] <= 0, "#23C483",
+				[Complaints MoM %] <= 0.10, "#FFB020",
+				"#FF3B3B"
+			)
+		displayFolder: 07 UX\Conditional Formatting
+		lineageTag: 8ef027c7-36f8-4f9f-b323-f7ebe98bbe31
+
+	measure 'Network Health Color' =
+			SWITCH(
+				TRUE(),
+				[Network Health Latest Month] >= 80, "#23C483",
+				[Network Health Latest Month] >= 65, "#FFB020",
+				"#FF3B3B"
+			)
+		displayFolder: 07 UX\Conditional Formatting
+		lineageTag: 9b0530c8-ad8e-4701-88cd-6a1f666cb69d
+
+	measure 'Customer Overview Subtitle' =
+			
+			"Average Tenure: "
+			    & FORMAT(
+			        [Average Customer Tenure Months],
+			        "0.0"
+			    )
+			    & " Months"
+		lineageTag: e6587ca9-82e8-40b1-9a18-e3cd4f7ef1ca
+
+	measure 'Internet Service Mix %' =
+			
+			DIVIDE(
+			    [Total Customers],
+			    CALCULATE(
+			        [Total Customers],
+			        REMOVEFILTERS(
+			            'dim_customer'[internet_service]
+			        )
+			    )
+			)
+		lineageTag: 0e8811c1-c29f-4f44-aecc-555d9b109410
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Collected Invoices' =
+			
+			[Total Invoices] - [Unpaid Invoices]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 02 Customer & Churn\Base
+		lineageTag: 63edfaab-d20b-4c27-9613-46e45ba8824f
+
+	measure 'On-Time Invoices' =
+			
+			SUM('fact_billing'[is_paid])
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 02 Customer & Churn\Base
+		lineageTag: 04e77544-0127-4084-be4e-751999b3b04c
+
+	measure 'Invoice Funnel Value' =
+			
+			SWITCH(
+			    SELECTEDVALUE(
+			        'Invoice Funnel Stages'[Stage]
+			    ),
+			    "Total Invoices", [Total Invoices],
+			    "Collected Invoices", [Collected Invoices],
+			    "On-Time Invoices", [On-Time Invoices]
+			)
+		formatString: 0
+		displayFolder: 02 Customer & Churn\Base
+		lineageTag: de1397c8-e4bd-4806-9fe8-5ffc3d2914b0
+
+	measure 'SLA Gauge Minimum' = 0
+		formatString: 0%;-0%;0%
+		lineageTag: ee9b50af-2f02-4739-8624-06bf86f69a01
+
+	measure 'SLA Gauge Maximum' = 1
+		formatString: 0%;-0%;0%
+		lineageTag: 136505fd-b66d-4907-ab48-4e2f703a078e
+
+	measure 'SLA Target %' = 0.90
+		formatString: 0%;-0%;0%
+		lineageTag: 1c6f3a97-320f-4cc6-99cc-e8a43e6551dd
+
+	column Placeholder
+		isHidden
+		formatString: 0
+		lineageTag: 887294b6-0ddd-4468-9255-bd26aeae4b5d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Placeholder]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source =
+				
+				ROW(
+				    "Placeholder",
+				    BLANK()
+				)
+
+	annotation PBI_Id = 54cece2033f84a25ab94aed620391948
+

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "Fluent2-CY26SU08",
+      "reportVersionAtImport": {
+        "visual": "2.12.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "publicCustomVisuals": [
+    "radarChartE89D21F3E4E64221B79113B5015EA81B",
+    "BasedOnTimelineSlicer"
+  ],
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "Fluent2-CY26SU08",
+          "path": "BaseThemes/Fluent2-CY26SU08.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "banknotes1412503054843588.png",
+          "path": "banknotes1412503054843588.png",
+          "type": "Image"
+        },
+        {
+          "name": "deep-learning04716591893694222.png",
+          "path": "deep-learning04716591893694222.png",
+          "type": "Image"
+        },
+        {
+          "name": "output-onlinepngtools_(5)6793615254485666.png",
+          "path": "output-onlinepngtools_(5)6793615254485666.png",
+          "type": "Image"
+        },
+        {
+          "name": "signal-status633938491442764.png",
+          "path": "signal-status633938491442764.png",
+          "type": "Image"
+        },
+        {
+          "name": "TelecoPulse_California_Network874650028046003.geojson",
+          "path": "TelecoPulse_California_Network874650028046003.geojson",
+          "type": "ShapeMap"
+        },
+        {
+          "name": "user761863734058062.png",
+          "path": "user761863734058062.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

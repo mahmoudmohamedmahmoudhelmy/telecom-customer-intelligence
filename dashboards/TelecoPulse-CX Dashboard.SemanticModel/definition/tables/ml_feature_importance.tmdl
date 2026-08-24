@@ -1,0 +1,32 @@
+table ml_feature_importance
+	lineageTag: 06fd9c44-c7cd-448b-b09a-6bceda1b66af
+
+	column feature_name
+		dataType: string
+		lineageTag: 58dc15f3-8cb9-4466-94bc-0354d6587de7
+		summarizeBy: none
+		sourceColumn: feature_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column importance
+		dataType: double
+		lineageTag: 8958b4c2-63ac-4bf3-aa6b-19647076e89c
+		summarizeBy: sum
+		sourceColumn: importance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition ml_feature_importance = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    ml_feature_importance_Table = telecom_gold_Schema{[Name="ml_feature_importance",Kind="Table"]}[Data]
+				in
+				    ml_feature_importance_Table
+

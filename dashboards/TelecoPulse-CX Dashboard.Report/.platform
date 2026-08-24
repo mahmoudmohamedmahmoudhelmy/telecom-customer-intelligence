@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "TelecoPulse-CX Dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b8d92efa-26d4-4c22-bdcf-44c30c5f86fa"
+  }
+}

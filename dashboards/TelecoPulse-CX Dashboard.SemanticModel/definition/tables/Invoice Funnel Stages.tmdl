@@ -1,0 +1,37 @@
+table 'Invoice Funnel Stages'
+	lineageTag: 1d5f3234-2980-4730-82eb-492d4ccdf33d
+
+	column Stage
+		lineageTag: accee950-0398-4800-ad5d-1522f456a88c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Stage]
+		sortByColumn: 'Stage Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Stage Order'
+		formatString: 0
+		lineageTag: c28f66aa-b758-44dc-b8a8-5a70cb4cc584
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Stage Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Invoice Funnel Stages' = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Stage", STRING,
+				    "Stage Order", INTEGER,
+				    {
+				        {"Total Invoices", 1},
+				        {"Collected Invoices", 2},
+				        {"On-Time Invoices", 3}
+				    }
+				)
+
+	annotation PBI_Id = 93915301f9bd486cb620bffa769f3ab4
+

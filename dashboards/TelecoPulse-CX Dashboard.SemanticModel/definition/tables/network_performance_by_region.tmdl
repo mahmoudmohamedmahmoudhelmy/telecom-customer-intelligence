@@ -1,0 +1,121 @@
+table network_performance_by_region
+	lineageTag: 9ad451db-c097-4880-9a0b-76880c728c04
+
+	column region
+		dataType: string
+		lineageTag: 49c4e1c5-fa29-4654-a308-4d035ef012d6
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column network_event_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 191449a8-c79c-4e5e-adc9-9af6e7f64da3
+		summarizeBy: sum
+		sourceColumn: network_event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column affected_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: e6dc8b3d-1781-44af-b555-dbb9f7347fee
+		summarizeBy: sum
+		sourceColumn: affected_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_latency_ms
+		dataType: double
+		lineageTag: 69ff332a-147f-4602-9c1e-26ea2636a202
+		summarizeBy: sum
+		sourceColumn: average_latency_ms
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_packet_loss_pct
+		dataType: double
+		lineageTag: 5c87152a-6ef5-413d-abac-e602216e8385
+		summarizeBy: sum
+		sourceColumn: average_packet_loss_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_download_speed_mbps
+		dataType: double
+		lineageTag: 8dc10e14-0053-4f4b-a9b8-bd43cb78cc81
+		summarizeBy: sum
+		sourceColumn: average_download_speed_mbps
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column outage_event_count
+		dataType: int64
+		formatString: 0
+		lineageTag: c95d3639-72a9-48e2-9783-70548db3e3c8
+		summarizeBy: sum
+		sourceColumn: outage_event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column degraded_event_count
+		dataType: int64
+		formatString: 0
+		lineageTag: e6a80219-d1ea-41b9-a9f7-90b3bba35f53
+		summarizeBy: sum
+		sourceColumn: degraded_event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_outage_minutes
+		dataType: int64
+		formatString: 0
+		lineageTag: 33e46ebf-ec49-4af3-9671-83c0bcdb5c6e
+		summarizeBy: sum
+		sourceColumn: total_outage_minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column regional_quality_score
+		dataType: double
+		lineageTag: 8a4ed672-2111-4ab9-b3f9-6d3042756ac3
+		summarizeBy: sum
+		sourceColumn: regional_quality_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _gold_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: efca85fe-7d41-4c93-b42b-30f2350329cd
+		summarizeBy: none
+		sourceColumn: _gold_created_at
+
+		variation Variation
+			isDefault
+			relationship: c1db5b42-ee89-4c45-8925-e6a0b92565dd
+			defaultHierarchy: LocalDateTable_9d10f91d-5663-4613-a8c2-66e8fbef2e2e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition network_performance_by_region = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    network_performance_by_region_Table = telecom_gold_Schema{[Name="network_performance_by_region",Kind="Table"]}[Data]
+				in
+				    network_performance_by_region_Table
+

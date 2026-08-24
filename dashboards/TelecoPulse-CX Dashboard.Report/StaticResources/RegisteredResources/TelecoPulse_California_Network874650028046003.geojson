@@ -1,0 +1,103 @@
+{
+  "type": "FeatureCollection",
+  "name": "TelecoPulse California Network Zones",
+  "metadata": {
+    "purpose": "Synthetic operating regions for the TelecoPulse-CX portfolio dashboard",
+    "geography": "California, United States",
+    "boundary_note": "Simplified analytical zones; not official administrative boundaries",
+    "coordinate_reference_system": "WGS84 (EPSG:4326)"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Northern California",
+        "zone_order": 1,
+        "color": "#237CFF",
+        "fillColor": "#237CFF",
+        "fillOpacity": 0.18,
+        "strokeColor": "#57C7FF",
+        "strokeWidth": 2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-123.1500, 38.3000],
+          [-123.7200, 39.0000],
+          [-124.2000, 40.0000],
+          [-124.4000, 41.0000],
+          [-124.4096, 42.0003],
+          [-120.0019, 41.9952],
+          [-120.0010, 39.0020],
+          [-119.9960, 38.9960],
+          [-119.3180, 38.4980],
+          [-119.0150, 38.3000],
+          [-123.1500, 38.3000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Central California",
+        "zone_order": 2,
+        "color": "#A855F7",
+        "fillColor": "#A855F7",
+        "fillOpacity": 0.18,
+        "strokeColor": "#D55CFF",
+        "strokeWidth": 2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-121.1000, 35.5000],
+          [-121.2800, 35.6500],
+          [-121.9000, 36.6200],
+          [-122.4200, 37.2400],
+          [-122.5200, 37.8000],
+          [-122.9400, 38.1600],
+          [-123.1500, 38.3000],
+          [-119.0150, 38.3000],
+          [-118.7140, 38.1030],
+          [-117.4980, 37.2190],
+          [-116.3810, 36.3650],
+          [-115.2500, 35.5000],
+          [-121.1000, 35.5000]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "region": "Southern California",
+        "zone_order": 3,
+        "color": "#FF304F",
+        "fillColor": "#FF304F",
+        "fillOpacity": 0.18,
+        "strokeColor": "#FF667D",
+        "strokeWidth": 2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-117.1270, 32.5340],
+          [-117.2400, 32.6600],
+          [-117.2900, 33.0500],
+          [-117.4800, 33.3600],
+          [-118.0000, 33.7500],
+          [-118.5200, 34.0300],
+          [-119.2000, 34.3700],
+          [-120.4700, 34.4500],
+          [-120.6500, 34.5800],
+          [-120.6300, 35.1200],
+          [-121.1000, 35.5000],
+          [-115.2500, 35.5000],
+          [-115.1800, 35.4470],
+          [-114.6330, 35.0010],
+          [-114.7190, 32.7180],
+          [-117.1270, 32.5340]
+        ]]
+      }
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+table ml_model_performance
+	lineageTag: 2a3c78ec-af8b-4a32-9a09-a9fc2d2e6657
+
+	column model_name
+		dataType: string
+		lineageTag: 3cf9be46-e1b3-46b0-92e8-fdfae8d98d9a
+		summarizeBy: none
+		sourceColumn: model_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_id
+		dataType: string
+		lineageTag: 788b1e3a-578a-4657-858f-c07df21f7fa0
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column accuracy
+		dataType: double
+		lineageTag: 16b4b3fb-742b-46c6-a367-0176c3c791be
+		summarizeBy: sum
+		sourceColumn: accuracy
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column precision
+		dataType: double
+		lineageTag: 50ab51c9-8821-412d-95a7-fb5129a08bb2
+		summarizeBy: sum
+		sourceColumn: precision
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recall
+		dataType: double
+		lineageTag: 699dfbc6-28bb-4583-b64b-205a20662f88
+		summarizeBy: sum
+		sourceColumn: recall
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column f1_score
+		dataType: double
+		lineageTag: 6cd20c99-ec54-40cd-9a05-00c0efb44790
+		summarizeBy: sum
+		sourceColumn: f1_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column roc_auc
+		dataType: double
+		lineageTag: edb491d6-c7f5-4e86-82e7-a128855ad722
+		summarizeBy: sum
+		sourceColumn: roc_auc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column evaluation_timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f82f2ded-969a-452b-ac94-4fc920519503
+		summarizeBy: none
+		sourceColumn: evaluation_timestamp
+
+		variation Variation
+			isDefault
+			relationship: 50142ffe-c452-4923-9a6f-94a37f8778e2
+			defaultHierarchy: LocalDateTable_713bde89-9fa9-4021-afc6-e706ce567ea5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ml_model_performance = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    ml_model_performance_Table = telecom_gold_Schema{[Name="ml_model_performance",Kind="Table"]}[Data]
+				in
+				    ml_model_performance_Table
+

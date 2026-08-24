@@ -1,0 +1,633 @@
+table customer_churn_analytics
+	lineageTag: a3a2ec74-01a8-46e8-a229-a047f99b28f8
+
+	column customer_id
+		dataType: string
+		lineageTag: 1ae41033-a2a3-47c3-866c-840cd3315770
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: b4147c82-029e-4e39-8028-6a4013c7533c
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column senior_citizen
+		dataType: int64
+		formatString: 0
+		lineageTag: 2fb4e051-c491-4a58-8626-30c9e7258c76
+		summarizeBy: sum
+		sourceColumn: senior_citizen
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_partner
+		dataType: string
+		lineageTag: 867eaa71-91c7-436c-8f00-f9a081946144
+		summarizeBy: none
+		sourceColumn: has_partner
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_dependents
+		dataType: string
+		lineageTag: ac95d52c-98b9-4c4d-854a-d4141f055c3b
+		summarizeBy: none
+		sourceColumn: has_dependents
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenure_months
+		dataType: int64
+		formatString: 0
+		lineageTag: cf6ebadd-47f1-40c8-b598-08ba50df094b
+		summarizeBy: sum
+		sourceColumn: tenure_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone_service
+		dataType: string
+		lineageTag: f68e8add-fc49-4ab6-8bb9-271af5bc67d4
+		summarizeBy: none
+		sourceColumn: phone_service
+
+		annotation SummarizationSetBy = Automatic
+
+	column multiple_lines
+		dataType: string
+		lineageTag: c3ecfbf9-bd00-4754-b7c1-d2582269cfc4
+		summarizeBy: none
+		sourceColumn: multiple_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column internet_service
+		dataType: string
+		lineageTag: 87cd5e51-8af2-44f6-a53b-3f0713d008e0
+		summarizeBy: none
+		sourceColumn: internet_service
+
+		annotation SummarizationSetBy = Automatic
+
+	column online_security
+		dataType: string
+		lineageTag: dcdbf3bb-f5d5-4dc3-8f5a-d378c4c46ad9
+		summarizeBy: none
+		sourceColumn: online_security
+
+		annotation SummarizationSetBy = Automatic
+
+	column online_backup
+		dataType: string
+		lineageTag: 32eacd1a-c581-4381-8a0f-fa839b05bcf2
+		summarizeBy: none
+		sourceColumn: online_backup
+
+		annotation SummarizationSetBy = Automatic
+
+	column device_protection
+		dataType: string
+		lineageTag: 57b64c9d-4077-4ea9-83dd-994a237d4323
+		summarizeBy: none
+		sourceColumn: device_protection
+
+		annotation SummarizationSetBy = Automatic
+
+	column tech_support
+		dataType: string
+		lineageTag: 5921d09d-0f4b-4af7-a8ba-6abde02e8891
+		summarizeBy: none
+		sourceColumn: tech_support
+
+		annotation SummarizationSetBy = Automatic
+
+	column streaming_tv
+		dataType: string
+		lineageTag: 92e83366-da9c-4ae2-95bc-bec31af8267d
+		summarizeBy: none
+		sourceColumn: streaming_tv
+
+		annotation SummarizationSetBy = Automatic
+
+	column streaming_movies
+		dataType: string
+		lineageTag: 0f2f257a-aca6-427d-939b-99b91353a2c5
+		summarizeBy: none
+		sourceColumn: streaming_movies
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_type
+		dataType: string
+		lineageTag: 5335c4bd-9269-4673-9e2b-2264430dc340
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column paperless_billing
+		dataType: string
+		lineageTag: 2e4621a4-cfe9-46be-b08b-3b5431ae0a58
+		summarizeBy: none
+		sourceColumn: paperless_billing
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: a0acf52f-b42c-4434-a5b2-b95df930d257
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_charges
+		dataType: double
+		lineageTag: 3999a4ad-fd1f-4ff9-947e-716ad59c3c28
+		summarizeBy: sum
+		sourceColumn: monthly_charges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_charges
+		dataType: double
+		lineageTag: ea3c2082-8944-435c-94d7-327ad63b1336
+		summarizeBy: sum
+		sourceColumn: total_charges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column churn
+		dataType: string
+		lineageTag: 8a26efbf-b104-4eff-9db5-f1f12204e18e
+		summarizeBy: none
+		sourceColumn: churn
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_label
+		dataType: int64
+		formatString: 0
+		lineageTag: de53036a-074a-406d-ba59-b7549dd84350
+		summarizeBy: sum
+		sourceColumn: churn_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column _silver_processed_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7f520c9c-f9e9-4e7f-808a-d811d4fa7498
+		summarizeBy: none
+		sourceColumn: _silver_processed_at
+
+		variation Variation
+			isDefault
+			relationship: f741f169-8a15-4bc5-8f6b-1e34e289e510
+			defaultHierarchy: LocalDateTable_d9104e37-dd3c-4ecf-a60b-cacc16a5ef3a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d665ceb-ed76-465d-be44-8b61a8d9453e
+		summarizeBy: sum
+		sourceColumn: invoice_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_billed_amount
+		dataType: double
+		lineageTag: 2accf60c-ff29-45f8-9391-66dcc5410bf2
+		summarizeBy: sum
+		sourceColumn: total_billed_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_invoice_amount
+		dataType: double
+		lineageTag: 8b6c344e-b1de-43ef-942a-9dc4eb26e6b9
+		summarizeBy: sum
+		sourceColumn: average_invoice_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_usage_charges
+		dataType: double
+		lineageTag: 970ee806-7c56-4537-8e81-217973401df1
+		summarizeBy: sum
+		sourceColumn: total_usage_charges
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_discounts
+		dataType: double
+		lineageTag: 9d308bd0-ff28-4bdf-a1aa-9d3041deab14
+		summarizeBy: sum
+		sourceColumn: total_discounts
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column paid_invoice_count
+		dataType: int64
+		formatString: 0
+		lineageTag: f79bea77-4297-4205-8775-88af01ae2808
+		summarizeBy: sum
+		sourceColumn: paid_invoice_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column late_invoice_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 9cb55aac-3099-45d9-8699-e36ef39f91e7
+		summarizeBy: sum
+		sourceColumn: late_invoice_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column unpaid_invoice_count
+		dataType: int64
+		formatString: 0
+		lineageTag: bbaff2a9-6ad8-4dbc-a370-a7c16f7e2da5
+		summarizeBy: sum
+		sourceColumn: unpaid_invoice_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column latest_billing_month
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3ac421c7-067c-4efa-8632-77d64b02b0da
+		summarizeBy: none
+		sourceColumn: latest_billing_month
+
+		variation Variation
+			isDefault
+			relationship: 6ec3b59f-2c54-414b-9472-50e88c5db446
+			defaultHierarchy: LocalDateTable_49065dc5-1c53-4be7-be5a-baa65b9dd22e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column payment_reliability_score
+		dataType: double
+		lineageTag: 734f22f5-46de-4587-8f0c-32d00ed0f623
+		summarizeBy: sum
+		sourceColumn: payment_reliability_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column complaint_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 9dcbe0a7-e2f8-437b-8b67-1c7beb32fe0f
+		summarizeBy: sum
+		sourceColumn: complaint_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_resolution_hours
+		dataType: double
+		lineageTag: 4ba7125f-9d31-4e55-b770-6adc2ae74215
+		summarizeBy: sum
+		sourceColumn: average_resolution_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_satisfaction_score
+		dataType: double
+		lineageTag: 1c89f526-628a-4278-8eaa-62f1a69bc4e5
+		summarizeBy: sum
+		sourceColumn: average_satisfaction_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column critical_complaint_count
+		dataType: int64
+		formatString: 0
+		lineageTag: b08ea269-8e92-4d2e-8265-1f2c1b54f4bc
+		summarizeBy: sum
+		sourceColumn: critical_complaint_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column escalated_complaint_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 7569f75b-185a-46cb-ab76-0000d5c4e117
+		summarizeBy: sum
+		sourceColumn: escalated_complaint_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column unresolved_complaint_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 0733e248-5d4a-41ec-8bd0-50a30ab958e4
+		summarizeBy: sum
+		sourceColumn: unresolved_complaint_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column latest_complaint_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: eb7b8246-8293-4dbc-8a94-cd9121d5deca
+		summarizeBy: none
+		sourceColumn: latest_complaint_at
+
+		variation Variation
+			isDefault
+			relationship: 0b947135-e0a9-4bda-a585-89fddc6762dc
+			defaultHierarchy: LocalDateTable_5ad17914-bf80-4abe-98a9-8fe110cad6f1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column network_event_count
+		dataType: int64
+		formatString: 0
+		lineageTag: b0689988-3098-4b0d-bab3-d1ef2c544f47
+		summarizeBy: sum
+		sourceColumn: network_event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_latency_ms
+		dataType: double
+		lineageTag: d7a9bc2d-3c77-4981-ae57-d7c13b2e6787
+		summarizeBy: sum
+		sourceColumn: average_latency_ms
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_packet_loss_pct
+		dataType: double
+		lineageTag: 01ec73ad-d0c0-4769-a0b1-a5718c477a9c
+		summarizeBy: sum
+		sourceColumn: average_packet_loss_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_download_speed_mbps
+		dataType: double
+		lineageTag: ea2da954-fd38-4202-a8dc-4fef6cd9c398
+		summarizeBy: sum
+		sourceColumn: average_download_speed_mbps
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_outage_minutes
+		dataType: int64
+		formatString: 0
+		lineageTag: b20b7086-f859-49c8-9ddb-7d3d92513f93
+		summarizeBy: sum
+		sourceColumn: total_outage_minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column outage_event_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 6450d882-1021-4a64-9149-0f0fa38f83bc
+		summarizeBy: sum
+		sourceColumn: outage_event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column degraded_event_count
+		dataType: int64
+		formatString: 0
+		lineageTag: f4d20b61-679b-464b-8aca-c81895ca62d3
+		summarizeBy: sum
+		sourceColumn: degraded_event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column distinct_tower_count
+		dataType: int64
+		formatString: 0
+		lineageTag: e2912bfb-f30c-44c7-a632-bd75097bf1df
+		summarizeBy: sum
+		sourceColumn: distinct_tower_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column latest_network_event_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8b7becb2-fe01-4b8f-8dfb-b4a00c6147e7
+		summarizeBy: none
+		sourceColumn: latest_network_event_at
+
+		variation Variation
+			isDefault
+			relationship: 204d5ccb-6599-41e3-9b78-b9c892fb921c
+			defaultHierarchy: LocalDateTable_7cc023cd-f901-4381-beb6-3b09e696a770.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column network_quality_score
+		dataType: double
+		lineageTag: 5815a817-f265-481b-96bc-7cba3dfc8304
+		summarizeBy: sum
+		sourceColumn: network_quality_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column has_billing_history
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ecf5418-705e-4478-a0d6-0f3b3a6a2504
+		summarizeBy: sum
+		sourceColumn: has_billing_history
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_complaints
+		dataType: int64
+		formatString: 0
+		lineageTag: 57ad1afe-3876-4db9-a50f-426f46ca3abf
+		summarizeBy: sum
+		sourceColumn: has_complaints
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_network_events
+		dataType: int64
+		formatString: 0
+		lineageTag: e22fdef4-db5c-4050-a6c3-088cfbe27b4d
+		summarizeBy: sum
+		sourceColumn: has_network_events
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_issue_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 2b0ee5da-8837-4e97-9a33-4cde0d95bd47
+		summarizeBy: sum
+		sourceColumn: payment_issue_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column complaint_severity_score
+		dataType: int64
+		formatString: 0
+		lineageTag: fad8ee20-8e95-4c97-ae07-a0bd25c91bd7
+		summarizeBy: sum
+		sourceColumn: complaint_severity_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column network_issue_rate
+		dataType: double
+		lineageTag: d5aa8811-22c9-4dc0-a0d1-2403c26fbc65
+		summarizeBy: sum
+		sourceColumn: network_issue_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column revenue_at_risk
+		dataType: double
+		lineageTag: 3e0163ef-54ad-468c-a369-5669bbc9a778
+		summarizeBy: sum
+		sourceColumn: revenue_at_risk
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _customer_360_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5cc4ceb0-738b-4553-84a8-5ed0a03d77b1
+		summarizeBy: none
+		sourceColumn: _customer_360_created_at
+
+		variation Variation
+			isDefault
+			relationship: 1c8ab892-ca59-4e67-8afe-41f75a141d0a
+			defaultHierarchy: LocalDateTable_b25d4488-c331-4d74-be2d-68316bada98b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_score
+		dataType: double
+		lineageTag: bb453d02-b160-4166-b4f9-e70e785e8513
+		summarizeBy: sum
+		sourceColumn: risk_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column risk_category
+		dataType: string
+		lineageTag: 7c9d61e2-3c1a-4026-ac54-948f81133112
+		summarizeBy: none
+		sourceColumn: risk_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_value_segment
+		dataType: string
+		lineageTag: 3fb71016-a64b-4707-b316-f36e563d327c
+		summarizeBy: none
+		sourceColumn: customer_value_segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_churn_revenue
+		dataType: double
+		lineageTag: 91d5cbda-3e74-498c-abde-c66baee92242
+		summarizeBy: sum
+		sourceColumn: actual_churn_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column business_risk_revenue
+		dataType: double
+		lineageTag: d4130e2d-5b6a-4822-9198-41d9e2ab7ea3
+		summarizeBy: sum
+		sourceColumn: business_risk_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column recommended_action
+		dataType: string
+		lineageTag: 2ccc6e81-9356-4f95-b6cd-f3cf89315baf
+		summarizeBy: none
+		sourceColumn: recommended_action
+
+		annotation SummarizationSetBy = Automatic
+
+	column _gold_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a85580f5-5e87-4369-aa95-82d8d3211134
+		summarizeBy: none
+		sourceColumn: _gold_created_at
+
+		variation Variation
+			isDefault
+			relationship: a7b63fe9-8f85-40d0-83bb-9065025831c9
+			defaultHierarchy: LocalDateTable_e2e64af1-b69b-4c77-b512-2aa419f963db.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer_churn_analytics = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    customer_churn_analytics_Table = telecom_gold_Schema{[Name="customer_churn_analytics",Kind="Table"]}[Data]
+				in
+				    customer_churn_analytics_Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,158 @@
+table executive_kpis
+	lineageTag: 10367cd1-b5b7-4202-8e47-e38a0d92acb6
+
+	column total_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b7811e7-c7cb-49cd-af10-033ab0af519c
+		summarizeBy: sum
+		sourceColumn: total_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column churned_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: bbb07564-d2e7-4aca-8faa-e26039f39ef6
+		summarizeBy: sum
+		sourceColumn: churned_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_rate_pct
+		dataType: double
+		lineageTag: 80d6741e-03ce-49ff-9ee8-a034b0768bee
+		summarizeBy: sum
+		sourceColumn: churn_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column monthly_recurring_revenue
+		dataType: double
+		lineageTag: b991a145-c29f-4467-8418-779ac9bfe11c
+		summarizeBy: sum
+		sourceColumn: monthly_recurring_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column actual_churn_revenue
+		dataType: double
+		lineageTag: de1bb335-e197-425d-8f62-c43293cca4a9
+		summarizeBy: sum
+		sourceColumn: actual_churn_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column business_risk_revenue
+		dataType: double
+		lineageTag: 83b85a4a-e7c8-42dc-ae94-8ad6a5abbfd7
+		summarizeBy: sum
+		sourceColumn: business_risk_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column average_revenue_per_user
+		dataType: double
+		lineageTag: 1d5d6ea3-c3a9-458d-a2cf-aa83e520be1f
+		summarizeBy: sum
+		sourceColumn: average_revenue_per_user
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_complaints
+		dataType: int64
+		formatString: 0
+		lineageTag: a749cd40-96f0-4c84-996e-da04a302a9d7
+		summarizeBy: sum
+		sourceColumn: total_complaints
+
+		annotation SummarizationSetBy = Automatic
+
+	column unresolved_complaints
+		dataType: int64
+		formatString: 0
+		lineageTag: 7acb04d2-9806-4b9c-a39b-e4d705fc819a
+		summarizeBy: sum
+		sourceColumn: unresolved_complaints
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_outage_events
+		dataType: int64
+		formatString: 0
+		lineageTag: 91f50e0f-9739-4780-a325-c0540437982c
+		summarizeBy: sum
+		sourceColumn: total_outage_events
+
+		annotation SummarizationSetBy = Automatic
+
+	column average_network_quality_score
+		dataType: double
+		lineageTag: a32eb8cd-9dbe-4958-b3a4-248ffba988df
+		summarizeBy: sum
+		sourceColumn: average_network_quality_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column high_risk_customers
+		dataType: int64
+		formatString: 0
+		lineageTag: 33581c27-1fcb-4c8a-8a8f-a228ad671f1f
+		summarizeBy: sum
+		sourceColumn: high_risk_customers
+
+		annotation SummarizationSetBy = Automatic
+
+	column snapshot_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 17381e69-1f1e-45b9-b7ea-e78585da614c
+		summarizeBy: none
+		sourceColumn: snapshot_date
+
+		variation Variation
+			isDefault
+			relationship: f8674448-c082-4b3d-b826-1ac79897a0c7
+			defaultHierarchy: LocalDateTable_7ac2a3f4-84ba-4935-8446-cc210851902f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column _gold_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5e8fb92d-fe77-45e2-a766-d8dfd53a244d
+		summarizeBy: none
+		sourceColumn: _gold_created_at
+
+		variation Variation
+			isDefault
+			relationship: 544287c5-b02b-4e2e-a869-7b1f1901213b
+			defaultHierarchy: LocalDateTable_31f18e1e-4722-433b-814d-5e2d8f1eb21b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition executive_kpis = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    executive_kpis_Table = telecom_gold_Schema{[Name="executive_kpis",Kind="Table"]}[Data]
+				in
+				    executive_kpis_Table
+

@@ -1,0 +1,165 @@
+relationship f741f169-8a15-4bc5-8f6b-1e34e289e510
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_churn_analytics._silver_processed_at
+	toColumn: LocalDateTable_d9104e37-dd3c-4ecf-a60b-cacc16a5ef3a.Date
+
+relationship 6ec3b59f-2c54-414b-9472-50e88c5db446
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_churn_analytics.latest_billing_month
+	toColumn: LocalDateTable_49065dc5-1c53-4be7-be5a-baa65b9dd22e.Date
+
+relationship 0b947135-e0a9-4bda-a585-89fddc6762dc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_churn_analytics.latest_complaint_at
+	toColumn: LocalDateTable_5ad17914-bf80-4abe-98a9-8fe110cad6f1.Date
+
+relationship 204d5ccb-6599-41e3-9b78-b9c892fb921c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_churn_analytics.latest_network_event_at
+	toColumn: LocalDateTable_7cc023cd-f901-4381-beb6-3b09e696a770.Date
+
+relationship 1c8ab892-ca59-4e67-8afe-41f75a141d0a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_churn_analytics._customer_360_created_at
+	toColumn: LocalDateTable_b25d4488-c331-4d74-be2d-68316bada98b.Date
+
+relationship a7b63fe9-8f85-40d0-83bb-9065025831c9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_churn_analytics._gold_created_at
+	toColumn: LocalDateTable_e2e64af1-b69b-4c77-b512-2aa419f963db.Date
+
+relationship 335046e1-8313-41d4-bf50-a27d6b790a01
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_churn_predictions.prediction_timestamp
+	toColumn: LocalDateTable_954f0e7f-087c-4731-a4a1-c65c03edf4b9.Date
+
+relationship 923b0dc9-026f-45d7-9ad8-b983152795a1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: customer_ml_features._feature_created_at
+	toColumn: LocalDateTable_a34f62ca-aa11-42f9-bedf-a3d1f6130b81.Date
+
+relationship 06380654-d73f-4548-9197-eab94f9d2138
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_customer._gold_created_at
+	toColumn: LocalDateTable_f3a08c62-7926-4e0a-af12-4d02469c81ec.Date
+
+relationship 802142b4-9232-4fb6-bddc-6a213bc32a14
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_date.full_date
+	toColumn: LocalDateTable_7bd5a9ec-3fb9-4519-a95d-bcaa737ef70f.Date
+
+relationship f8674448-c082-4b3d-b826-1ac79897a0c7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: executive_kpis.snapshot_date
+	toColumn: LocalDateTable_7ac2a3f4-84ba-4935-8446-cc210851902f.Date
+
+relationship 544287c5-b02b-4e2e-a869-7b1f1901213b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: executive_kpis._gold_created_at
+	toColumn: LocalDateTable_31f18e1e-4722-433b-814d-5e2d8f1eb21b.Date
+
+relationship 552081e2-4d26-495d-a390-9e9fb8fc629b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_billing.billing_month
+	toColumn: LocalDateTable_314a33e5-0f57-4454-b56c-7dbf2ab19bb2.Date
+
+relationship 0d071c65-6e6f-493c-a2e1-9fa8493c6df6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_billing.payment_date
+	toColumn: LocalDateTable_69ac4789-d690-43da-8f16-b3432b84831f.Date
+
+relationship 404db6c0-1efb-4bbe-b87b-76241c9fb698
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_billing._gold_created_at
+	toColumn: LocalDateTable_34bdeffa-41c9-4740-abcf-4219d0cbfbee.Date
+
+relationship 50364a4c-5cee-4a31-a692-48910f9277a1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_complaints.opened_at
+	toColumn: LocalDateTable_df8e4cf1-efa8-4022-8062-b6473154a9fb.Date
+
+relationship e19df488-e933-40cf-ae23-7792a431d859
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_complaints._gold_created_at
+	toColumn: LocalDateTable_f031b558-1629-4d88-826d-d84ea465ec5b.Date
+
+relationship a2651aeb-ede2-4d78-8d53-4c55ec61ccc6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_network_events.event_timestamp
+	toColumn: LocalDateTable_046c6b54-d67d-4ffe-8d97-8fa4e9005e76.Date
+
+relationship 90557e98-0cdb-49de-8e16-8bd933f03a50
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_network_events._gold_created_at
+	toColumn: LocalDateTable_6b07074a-df97-46f6-8e19-a89a230b2889.Date
+
+relationship 6ec7ea8d-d90b-4bc6-94d5-034e161fe726
+	joinOnDateBehavior: datePartOnly
+	fromColumn: high_risk_customers._gold_created_at
+	toColumn: LocalDateTable_c987ae5d-17f2-4b04-ab5d-17b286cce17f.Date
+
+relationship 50142ffe-c452-4923-9a6f-94a37f8778e2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ml_model_performance.evaluation_timestamp
+	toColumn: LocalDateTable_713bde89-9fa9-4021-afc6-e706ce567ea5.Date
+
+relationship c1db5b42-ee89-4c45-8925-e6a0b92565dd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: network_performance_by_region._gold_created_at
+	toColumn: LocalDateTable_9d10f91d-5663-4613-a8c2-66e8fbef2e2e.Date
+
+relationship 6f10e61f-d035-42d6-845b-48931bf9cbd3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: revenue_risk_by_segment._gold_created_at
+	toColumn: LocalDateTable_6af5d6e6-ef4c-4cd1-bf6a-179a443fc9c2.Date
+
+relationship 40a0c80f-b4d4-ca56-2af0-51f4af33e98c
+	fromColumn: fact_billing.customer_key
+	toColumn: dim_customer.customer_key
+
+relationship 60e903a2-62f2-a278-3913-81c7c8e4a40d
+	fromColumn: fact_complaints.customer_key
+	toColumn: dim_customer.customer_key
+
+relationship 0b2393c4-72fc-be5a-035b-4c952d7648b6
+	fromColumn: fact_network_events.customer_key
+	toColumn: dim_customer.customer_key
+
+relationship ce5ac721-3980-178a-2719-f0ca17c91dea
+	fromColumn: fact_billing.billing_date_key
+	toColumn: dim_date.date_key
+
+relationship 04c4437f-9fab-e5e0-19a2-cbe55e768d95
+	fromColumn: fact_complaints.opened_date_key
+	toColumn: dim_date.date_key
+
+relationship 337753c5-aa7b-3a36-de07-11cf9e34b4b8
+	fromColumn: fact_network_events.event_date_key
+	toColumn: dim_date.date_key
+
+relationship 98a8c8c7-5a42-765e-1f17-c21e37f99d2e
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dim_customer.customer_id
+	toColumn: customer_churn_predictions.customer_id
+
+relationship da1043ef-b4f3-7d64-ffa8-87ad3560e836
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dim_customer.customer_id
+	toColumn: customer_churn_analytics.customer_id
+
+relationship 010a1364-23cd-e5e5-21c7-164054aa1c69
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dim_customer.customer_id
+	toColumn: high_risk_customers.customer_id
+
+relationship AutoDetected_e3113697-b443-4b79-b3dc-4a8d27d1429c
+	fromColumn: dim_network_location.region
+	toColumn: network_performance_by_region.region
+
+relationship AutoDetected_6c9649ea-2306-4e7a-9ac3-20a4ecd3fed1
+	fromColumn: fact_network_events.location_key
+	toColumn: dim_network_location.location_key
+

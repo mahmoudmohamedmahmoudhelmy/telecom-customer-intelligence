@@ -611,3 +611,29 @@ if importance_values is not None:
     )
 
     display(feature_importance_spark.limit(20))
+
+# COMMAND ----------
+
+from pyspark.sql import functions as F
+
+prediction_validation = (
+    spark.table(
+        "workspace.telecom_gold.customer_churn_predictions"
+    )
+    .groupBy(
+        "actual_churn_label",
+        "predicted_churn_label"
+    )
+    .agg(
+        F.countDistinct("customer_id").alias("customers")
+    )
+    .orderBy(
+        "actual_churn_label",
+        "predicted_churn_label"
+    )
+)
+
+display(prediction_validation)
+
+# COMMAND ----------
+

@@ -1,0 +1,190 @@
+table fact_network_events
+	lineageTag: 8d6bd4f1-87d7-43e2-9977-8e51a52d96a5
+
+	column event_id
+		dataType: string
+		lineageTag: 339ae45e-fa48-48a2-adf0-6bbd32735fad
+		summarizeBy: none
+		sourceColumn: event_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a218056-afb3-48a6-b65c-6567d247b0fb
+		summarizeBy: none
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 16bbf37c-11c2-4911-8f96-6b1f9e5da6f1
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 9720d0b8-c0a8-44bf-87e8-95107e9dc8be
+		summarizeBy: none
+		sourceColumn: event_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c0ebbb54-27b0-4e3c-9fbd-f32f52782db2
+		summarizeBy: none
+		sourceColumn: event_timestamp
+
+		variation Variation
+			isDefault
+			relationship: a2651aeb-ede2-4d78-8d53-4c55ec61ccc6
+			defaultHierarchy: LocalDateTable_046c6b54-d67d-4ffe-8d97-8fa4e9005e76.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_type
+		dataType: string
+		lineageTag: 555c71b1-15bb-4a31-8533-48a2f64f9823
+		summarizeBy: none
+		sourceColumn: event_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 578aedbe-7e82-42ec-9b8d-f043c0816e26
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column tower_id
+		dataType: string
+		lineageTag: 97648069-a5a3-480a-84e0-0c3176e48da8
+		summarizeBy: none
+		sourceColumn: tower_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column latency_ms
+		dataType: double
+		lineageTag: 0a67d7ee-d57e-4ba2-9218-4c5a3db96da7
+		summarizeBy: sum
+		sourceColumn: latency_ms
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column packet_loss_pct
+		dataType: double
+		lineageTag: 25a78d83-36fd-4b81-a1a7-fb2fdff4445c
+		summarizeBy: sum
+		sourceColumn: packet_loss_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column download_speed_mbps
+		dataType: double
+		lineageTag: d5ec3239-ff26-46dc-b10c-13ccf51ae990
+		summarizeBy: sum
+		sourceColumn: download_speed_mbps
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column outage_minutes
+		dataType: int64
+		formatString: 0
+		lineageTag: 95c8b723-f9fc-43ea-a882-d0be4b1a00e3
+		summarizeBy: sum
+		sourceColumn: outage_minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_outage
+		dataType: int64
+		formatString: 0
+		lineageTag: e9fd2db8-fe43-4ae6-9f99-d05faf6a4dd9
+		summarizeBy: sum
+		sourceColumn: is_outage
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_degraded
+		dataType: int64
+		formatString: 0
+		lineageTag: ac315e7c-5699-42aa-a4e9-a614971d39b5
+		summarizeBy: sum
+		sourceColumn: is_degraded
+
+		annotation SummarizationSetBy = Automatic
+
+	column _gold_created_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e1badc5f-6476-4fa2-9841-d77c49613a6d
+		summarizeBy: none
+		sourceColumn: _gold_created_at
+
+		variation Variation
+			isDefault
+			relationship: 90557e98-0cdb-49de-8e16-8bd933f03a50
+			defaultHierarchy: LocalDateTable_6b07074a-df97-46f6-8e19-a89a230b2889.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column access_technology
+		dataType: string
+		lineageTag: 59d6191b-abb9-4a44-89a3-2ff0ff875994
+		summarizeBy: none
+		sourceColumn: access_technology
+
+		annotation SummarizationSetBy = Automatic
+
+	column cabinet_id
+		dataType: string
+		lineageTag: 5b16f9d6-a449-45cf-a3c6-bf1c29168a90
+		summarizeBy: none
+		sourceColumn: cabinet_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column cabinet_type
+		dataType: string
+		lineageTag: 177d9ca2-0303-4f25-8e9f-aae78b522bdc
+		summarizeBy: none
+		sourceColumn: cabinet_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_key
+		dataType: int64
+		formatString: 0
+		lineageTag: b53950b4-3c04-4e59-95e8-b2e6023aadc8
+		summarizeBy: none
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_network_events = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    fact_network_events_Table = telecom_gold_Schema{[Name="fact_network_events",Kind="Table"]}[Data]
+				in
+				    fact_network_events_Table
+

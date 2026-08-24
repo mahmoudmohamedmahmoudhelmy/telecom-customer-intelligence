@@ -1,0 +1,108 @@
+table customer_churn_predictions
+	lineageTag: 73aac43f-74d1-40ab-b1a2-924f6c6b0e9f
+
+	column customer_id
+		dataType: string
+		lineageTag: 43f7cc64-1dec-4beb-a11e-75025e28e84f
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_churn_label
+		dataType: int64
+		formatString: 0
+		lineageTag: e536fcc0-1d7e-44e9-a8f4-e9ed30c47b97
+		summarizeBy: sum
+		sourceColumn: actual_churn_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column predicted_churn_label
+		dataType: int64
+		formatString: 0
+		lineageTag: 474d61d9-73f1-445a-b162-c36722143150
+		summarizeBy: sum
+		sourceColumn: predicted_churn_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column churn_probability
+		dataType: double
+		lineageTag: 9c463be3-7c4a-425f-929e-683d7b3c0ffe
+		summarizeBy: sum
+		sourceColumn: churn_probability
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column risk_category
+		dataType: string
+		lineageTag: be8b4cee-798a-4015-b61b-5d1b98eeda82
+		summarizeBy: none
+		sourceColumn: risk_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column model_name
+		dataType: string
+		lineageTag: 74000009-863c-4e9d-bc30-1fcfb3c60dd6
+		summarizeBy: none
+		sourceColumn: model_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column mlflow_run_id
+		dataType: string
+		lineageTag: 6cf0a78c-a96b-42f1-9c20-c81fc1674ad9
+		summarizeBy: none
+		sourceColumn: mlflow_run_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column prediction_timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2a60934e-f46c-47fc-a1c9-8d942e1316fc
+		summarizeBy: none
+		sourceColumn: prediction_timestamp
+
+		variation Variation
+			isDefault
+			relationship: 335046e1-8313-41d4-bf50-a27d6b790a01
+			defaultHierarchy: LocalDateTable_954f0e7f-087c-4731-a4a1-c65c03edf4b9.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prediction Outcome' =
+			
+			VAR ActualLabel =
+			    'customer_churn_predictions'[actual_churn_label]
+			VAR PredictedLabel =
+			    'customer_churn_predictions'[predicted_churn_label]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ActualLabel = 1 && PredictedLabel = 1, "True Positive",
+			        ActualLabel = 0 && PredictedLabel = 0, "True Negative",
+			        ActualLabel = 0 && PredictedLabel = 1, "False Positive",
+			        ActualLabel = 1 && PredictedLabel = 0, "False Negative",
+			        "Unknown"
+			    )
+		lineageTag: 17150d4b-fc23-4c07-8b03-6ee19a54fad4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer_churn_predictions = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    customer_churn_predictions_Table = telecom_gold_Schema{[Name="customer_churn_predictions",Kind="Table"]}[Data]
+				in
+				    customer_churn_predictions_Table
+

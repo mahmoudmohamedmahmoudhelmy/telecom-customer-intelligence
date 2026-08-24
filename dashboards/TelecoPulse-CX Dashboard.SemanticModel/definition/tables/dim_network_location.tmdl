@@ -1,0 +1,96 @@
+table dim_network_location
+	lineageTag: 64c715d9-ba3d-4db1-8bd6-f01da79cd7eb
+
+	column location_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 211e4de7-77b5-44b9-ae66-37d8274e08d5
+		summarizeBy: none
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: f01ec6aa-a2b1-4a0f-bd97-c11e8ef112fb
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 0a3bc85e-c2a3-4842-938c-4b861cb4a50e
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		formatString: 0.00
+		lineageTag: 368f0e0e-fdea-48e1-ae65-c74a61ef3152
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = User
+
+	column longitude
+		dataType: double
+		formatString: 0.00
+		lineageTag: 3b439324-3b4f-41fe-a31d-51e6ca61da79
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = User
+
+	column quality_factor
+		dataType: double
+		lineageTag: 6b5ba1b2-9a96-49f8-b5cb-faa0923c07cb
+		summarizeBy: sum
+		sourceColumn: quality_factor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column state
+		dataType: string
+		lineageTag: d25d6a6d-3bc3-45d7-82e7-bcbd3168f822
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 20c583cc-0233-412c-be59-aea591dea4c3
+		dataCategory: County
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_label
+		dataType: string
+		lineageTag: feb47d5f-b897-40f4-84cd-0acb76276635
+		summarizeBy: none
+		sourceColumn: location_label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_network_location = m
+		mode: import
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-3a427e62-52f9.cloud.databricks.com", "/sql/1.0/warehouses/80c4ab488717cf43", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    telecom_gold_Schema = workspace_Database{[Name="telecom_gold",Kind="Schema"]}[Data],
+				    dim_network_location_Table = telecom_gold_Schema{[Name="dim_network_location",Kind="Table"]}[Data]
+				in
+				    dim_network_location_Table
+
